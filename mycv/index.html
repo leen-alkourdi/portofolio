@@ -1,0 +1,3690 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لين حسن الكردي | Frontend Developer & Content Creator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* ============ TOKENS ============ */
+      :root {
+        --pink-blush: #fff4f8;
+        --pink-cloud: #ffe3ee;
+        --pink-petal: #ffc2dd;
+        --pink-candy: #ff8fb8;
+        --pink-rose: #f2578f;
+        --pink-deep: #c23f70;
+        --plum: #4a2438;
+        --plum-soft: #8a6377;
+        --white: #ffffff;
+        --card-bg: #fffbfd;
+        --border-soft: #ffd6e8;
+
+        --grad-hero: linear-gradient(
+          135deg,
+          #ffd3e6 0%,
+          #ffb6d5 45%,
+          #ff9fc7 100%
+        );
+        --grad-card: linear-gradient(160deg, #ffffff 0%, #fff2f8 100%);
+        --grad-btn: linear-gradient(120deg, #ff8fb8 0%, #f2578f 100%);
+
+        --shadow-soft: 0 10px 30px rgba(226, 80, 140, 0.14);
+        --shadow-lift: 0 18px 40px rgba(226, 80, 140, 0.22);
+
+        --ff-head: "Cairo", sans-serif;
+        --ff-body: "Tajawal", sans-serif;
+
+        --radius-lg: 26px;
+        --radius-md: 18px;
+        --radius-sm: 12px;
+
+        --tr: 0.3s ease;
+      }
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--ff-body);
+        background:
+          radial-gradient(circle at 8% 12%, #ffeaf3 0%, transparent 45%),
+          radial-gradient(circle at 92% 85%, #ffe0ee 0%, transparent 40%),
+          var(--pink-blush);
+        color: var(--plum);
+        min-height: 100vh;
+        line-height: 1.8;
+      }
+      ul {
+        list-style: none;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      button {
+        font: inherit;
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: inherit;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      input,
+      textarea {
+        font: inherit;
+        width: 100%;
+        background: none;
+        color: inherit;
+      }
+
+      ::selection {
+        background: var(--pink-candy);
+        color: #fff;
+      }
+      :focus-visible {
+        outline: 2px solid var(--pink-rose);
+        outline-offset: 2px;
+      }
+
+      /* ============ BOW ICON ============ */
+      .bow {
+        width: 26px;
+        height: 16px;
+        display: inline-block;
+        flex-shrink: 0;
+      }
+      .bow-lg {
+        width: 46px;
+        height: 28px;
+      }
+
+      /* ============ REUSED ============ */
+      .sidebar,
+      article {
+        background: var(--grad-card);
+        border: 1px solid var(--border-soft);
+        border-radius: var(--radius-lg);
+        padding: 18px;
+        max-height: 92vh;
+        overflow: auto;
+        box-shadow: var(--shadow-soft);
+      }
+      article {
+        display: none;
+        animation: fadeUp 0.45s ease;
+      }
+      article.active {
+        display: block;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .separator {
+        width: 100%;
+        height: 1px;
+        background: var(--border-soft);
+        margin: 18px 0;
+      }
+
+      .section-heading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+      .section-heading h2 {
+        font-family: var(--ff-head);
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--pink-deep);
+      }
+
+      .h3 {
+        font-family: var(--ff-head);
+        font-weight: 700;
+        font-size: 17px;
+        color: var(--plum);
+      }
+      .h4 {
+        font-family: var(--ff-head);
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--plum);
+      }
+
+      .icon-box {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--grad-btn);
+        color: #fff;
+        font-size: 18px;
+        flex-shrink: 0;
+        box-shadow: 0 6px 14px rgba(242, 87, 143, 0.35);
+      }
+
+      /* ============ LAYOUT ============ */
+      main {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 16px 16px 100px;
+      }
+
+      /* ----- Sidebar ----- */
+      .sidebar {
+        margin-bottom: 16px;
+        max-height: 128px;
+        overflow: hidden;
+        transition: max-height var(--tr);
+        position: relative;
+      }
+      .sidebar.active {
+        max-height: 520px;
+      }
+      .sidebar::before {
+        content: "";
+        position: absolute;
+        inset-inline-start: -10px;
+        top: -14px;
+        width: 34px;
+        height: 34px;
+        background: var(--pink-petal);
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        opacity: 0.6;
+        display: none;
+      }
+      .sidebar-info {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        position: relative;
+      }
+      .avatar-box {
+        position: relative;
+        width: 84px;
+        height: 84px;
+        border-radius: 24px;
+        background: var(--grad-hero);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--ff-head);
+        font-size: 34px;
+        font-weight: 800;
+        color: #fff;
+        box-shadow: var(--shadow-soft);
+        flex-shrink: 0;
+      }
+      .avatar-box .bow {
+        position: absolute;
+        top: -10px;
+        right: -8px;
+      }
+      .info-content .name {
+        font-family: var(--ff-head);
+        font-size: 19px;
+        font-weight: 800;
+        color: var(--plum);
+        margin-bottom: 6px;
+      }
+      .info-content .title {
+        display: inline-block;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--pink-deep);
+        background: var(--pink-cloud);
+        padding: 4px 14px;
+        border-radius: 20px;
+      }
+      .info-more-btn {
+        position: absolute;
+        inset-inline-end: 0;
+        top: -6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--pink-rose);
+        background: var(--white);
+        padding: 8px 12px;
+        border-radius: 14px;
+        box-shadow: var(--shadow-soft);
+      }
+      .info-more-btn ion-chevron {
+        transition: transform var(--tr);
+      }
+      .sidebar.active .info-more-btn i {
+        transform: rotate(180deg);
+      }
+      .info-more-btn i {
+        transition: transform var(--tr);
+      }
+
+      .sidebar-info_more {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity var(--tr);
+      }
+      .sidebar.active .sidebar-info_more {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .contacts-list {
+        display: grid;
+        gap: 14px;
+      }
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .contact-item .icon-box {
+        width: 38px;
+        height: 38px;
+        font-size: 15px;
+        border-radius: 10px;
+      }
+      .contact-info .contact-title {
+        font-size: 11.5px;
+        color: var(--plum-soft);
+        margin-bottom: 2px;
+      }
+      .contact-info .contact-link {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--plum);
+        word-break: break-word;
+      }
+
+      .social-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .social-list a {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--pink-cloud);
+        color: var(--pink-deep);
+        font-size: 16px;
+        transition: var(--tr);
+      }
+      .social-list a:hover {
+        background: var(--grad-btn);
+        color: #fff;
+        transform: translateY(-3px);
+      }
+
+      /* ----- Navbar ----- */
+      .navbar {
+        position: fixed;
+        bottom: 0;
+        inset-inline-start: 0;
+        width: 100%;
+        background: rgba(255, 244, 248, 0.9);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid var(--border-soft);
+        box-shadow: 0 -6px 24px rgba(226, 80, 140, 0.12);
+        z-index: 50;
+        padding: 8px 10px;
+      }
+      .navbar-list {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .navbar-link {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--plum-soft);
+        padding: 9px 14px;
+        border-radius: 14px;
+        transition: var(--tr);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .navbar-link:hover {
+        color: var(--pink-rose);
+      }
+      .navbar-link.active {
+        color: #fff;
+        background: var(--grad-btn);
+        box-shadow: 0 6px 16px rgba(242, 87, 143, 0.35);
+      }
+
+      /* ----- About ----- */
+      .about-text p {
+        color: var(--plum-soft);
+        font-size: 14.5px;
+        margin-bottom: 14px;
+      }
+      .about-text strong {
+        color: var(--pink-deep);
+        font-weight: 700;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-top: 6px;
+      }
+      .stat-card {
+        background: var(--pink-cloud);
+        border-radius: var(--radius-md);
+        padding: 16px;
+        text-align: center;
+      }
+      .stat-card .num {
+        font-family: var(--ff-head);
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--pink-deep);
+      }
+      .stat-card .lbl {
+        font-size: 12px;
+        color: var(--plum-soft);
+        margin-top: 2px;
+      }
+
+      .service-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 8px;
+      }
+      .service-item {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        background: var(--white);
+        border: 1px solid var(--border-soft);
+        border-radius: var(--radius-md);
+        padding: 16px;
+      }
+      .service-item p {
+        font-size: 13px;
+        color: var(--plum-soft);
+        margin-top: 4px;
+      }
+
+      /* ----- Resume ----- */
+      .timeline {
+        margin-bottom: 26px;
+      }
+      .timeline .title-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .timeline-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .timeline-item {
+        background: var(--white);
+        border: 1px solid var(--border-soft);
+        border-inline-start: 4px solid var(--pink-rose);
+        border-radius: var(--radius-md);
+        padding: 16px;
+      }
+      .timeline-item span {
+        display: inline-block;
+        color: var(--pink-deep);
+        font-size: 12.5px;
+        font-weight: 600;
+        margin: 4px 0 8px;
+      }
+      .timeline-item p {
+        font-size: 13.5px;
+        color: var(--plum-soft);
+      }
+
+      .skills-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .skill-item .skill-top {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13.5px;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .skill-bar {
+        width: 100%;
+        height: 10px;
+        border-radius: 10px;
+        background: var(--pink-cloud);
+        overflow: hidden;
+      }
+      .skill-bar span {
+        display: block;
+        height: 100%;
+        border-radius: 10px;
+        background: var(--grad-btn);
+      }
+
+      /* ----- Portfolio ----- */
+      .portfolio-block {
+        margin-bottom: 36px;
+      }
+      .portfolio-block:last-child {
+        margin-bottom: 0;
+      }
+      .block-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .block-title h3 {
+        font-family: var(--ff-head);
+        font-size: 17px;
+        font-weight: 800;
+        color: var(--pink-deep);
+      }
+      .block-note {
+        font-size: 12px;
+        color: var(--plum-soft);
+        margin-top: -8px;
+        margin-bottom: 14px;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .project-item {
+        background: var(--white);
+        border: 1px solid var(--border-soft);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        transition: var(--tr);
+      }
+      .project-item:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lift);
+      }
+      .project-img {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        aspect-ratio: 4/3;
+        background: var(--pink-cloud);
+      }
+      .project-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.35s ease;
+      }
+      .project-item:hover .project-img img {
+        transform: scale(1.06);
+      }
+      .project-img .zoom-hint {
+        position: absolute;
+        inset: 0;
+        background: rgba(194, 63, 112, 0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 20px;
+        opacity: 0;
+        transition: var(--tr);
+      }
+      .project-img:hover .zoom-hint {
+        opacity: 1;
+        background: rgba(194, 63, 112, 0.45);
+      }
+      .project-info {
+        padding: 12px 14px 16px;
+      }
+      .project-info h4 {
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--plum);
+      }
+      .project-info p {
+        font-size: 11.5px;
+        color: var(--plum-soft);
+        margin-top: 3px;
+      }
+      .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 10px;
+      }
+      .project-tags span {
+        background: var(--pink-cloud);
+        color: var(--pink-deep);
+        font-size: 10.5px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 20px;
+      }
+      .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--pink-rose);
+      }
+
+      /* certificates / designs share gallery-grid + project-item minus info for compactness */
+      .cert-item .project-info,
+      .design-item .project-info {
+        padding: 10px 12px 14px;
+      }
+      .cert-item h4,
+      .design-item h4 {
+        font-size: 12.5px;
+      }
+
+      /* ----- Contact ----- */
+      .contact-form {
+        margin-top: 6px;
+      }
+      .input-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+      .form-input {
+        color: var(--plum);
+        font-size: 13.5px;
+        padding: 13px 18px;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        background: var(--white);
+        transition: var(--tr);
+      }
+      .form-input:focus {
+        border-color: var(--pink-rose);
+      }
+      .form-input::placeholder {
+        color: #c78ba3;
+      }
+      textarea.form-input {
+        min-height: 110px;
+        resize: vertical;
+        margin-bottom: 14px;
+      }
+      .form-btn {
+        width: 100%;
+        background: var(--grad-btn);
+        color: #fff;
+        padding: 15px;
+        border-radius: 16px;
+        font-size: 14px;
+        font-weight: 700;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 10px 24px rgba(242, 87, 143, 0.35);
+        transition: var(--tr);
+      }
+      .form-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .contact-social {
+        margin-top: 26px;
+      }
+      .contact-social .social-list a {
+        width: 52px;
+        height: 52px;
+        font-size: 19px;
+        border-radius: 16px;
+      }
+
+      /* ----- Content creator + featured project ----- */
+      .project-placeholder {
+        width: 100%;
+        height: 100%;
+        min-height: 190px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        background: linear-gradient(135deg, #4a2438, #c23f70, #ff8fb8);
+        color: #fff;
+        text-align: center;
+      }
+      .project-placeholder i {
+        font-size: 34px;
+        margin-bottom: 4px;
+      }
+      .project-placeholder span {
+        font-family: var(--ff-head);
+        font-weight: 800;
+        font-size: 17px;
+      }
+      .project-placeholder small {
+        font-size: 11px;
+        opacity: 0.85;
+      }
+      .featured-project {
+        border: 1.5px solid var(--pink-rose);
+      }
+      .whatsapp-contact-card {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 14px;
+        padding: 18px;
+        background: var(--white);
+        border: 1px solid var(--border-soft);
+        border-radius: var(--radius-md);
+      }
+      .whatsapp-contact-card .icon-box {
+        background: linear-gradient(120deg, #25d366, #128c7e);
+      }
+      .whatsapp-contact-card strong {
+        font-family: var(--ff-head);
+        font-size: 15px;
+      }
+      .whatsapp-contact-card p {
+        color: var(--plum-soft);
+        font-size: 12px;
+        margin-top: 2px;
+      }
+      .whatsapp-btn {
+        width: auto;
+        margin: 0;
+        padding: 11px 18px;
+        display: inline-flex;
+      }
+      @media (max-width: 560px) {
+        .whatsapp-contact-card {
+          grid-template-columns: auto 1fr;
+        }
+        .whatsapp-btn {
+          grid-column: 1 / -1;
+          width: 100%;
+        }
+      }
+
+      /* ============ ARTICLES ============ */
+      .articles-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .article-card {
+        background: var(--white);
+        border: 1px solid var(--border-soft);
+        border-radius: var(--radius-md);
+        padding: 18px;
+        transition: var(--tr);
+        display: flex;
+        flex-direction: column;
+        min-height: 230px;
+      }
+      .article-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lift);
+      }
+      .article-card .article-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--grad-btn);
+        color: #fff;
+        font-size: 19px;
+        margin-bottom: 14px;
+        box-shadow: 0 7px 18px rgba(242, 87, 143, 0.25);
+      }
+      .article-card h4 {
+        font-family: var(--ff-head);
+        color: var(--plum);
+        font-size: 16px;
+        line-height: 1.55;
+        margin-bottom: 8px;
+      }
+      .article-card p {
+        color: var(--plum-soft);
+        font-size: 12.5px;
+        line-height: 1.85;
+        display: -webkit-box;
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .article-read-btn {
+        margin-top: auto;
+        padding-top: 14px;
+        color: var(--pink-rose);
+        font-size: 12.5px;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        cursor: pointer;
+      }
+      .article-reader {
+        display: none;
+        text-align: right;
+        overflow-y: auto;
+        max-height: calc(96vh - 50px);
+        padding: 10px 8px 18px;
+      }
+      .article-reader.active {
+        display: block;
+      }
+      .article-reader h3 {
+        font-family: var(--ff-head);
+        color: var(--pink-deep);
+        font-size: 23px;
+        line-height: 1.6;
+        margin: 8px 0 18px;
+      }
+      .article-reader p {
+        color: var(--plum);
+        font-size: 15px;
+        line-height: 2.05;
+        margin-bottom: 16px;
+      }
+      .article-reader .article-subtitle {
+        font-family: var(--ff-head);
+        color: var(--pink-deep);
+        font-size: 17px;
+        font-weight: 800;
+        margin: 28px 0 10px;
+      }
+      .article-reader .article-quote {
+        background: var(--pink-cloud);
+        border-right: 4px solid var(--pink-rose);
+        padding: 13px 16px;
+        border-radius: 12px;
+        color: var(--plum);
+        font-weight: 600;
+        margin: 14px 0 20px;
+      }
+      .article-reader ul {
+        list-style: disc;
+        padding-right: 22px;
+        margin: 10px 0 18px;
+      }
+      .article-reader li {
+        color: var(--plum);
+        font-size: 14px;
+        line-height: 1.9;
+        margin-bottom: 6px;
+      }
+      .article-reader .article-close {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        float: left;
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: var(--grad-btn);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: var(--shadow-soft);
+      }
+      @media (max-width: 650px) {
+        .articles-grid {
+          grid-template-columns: 1fr;
+        }
+        .article-reader h3 {
+          font-size: 20px;
+        }
+        .article-reader p {
+          font-size: 14px;
+          line-height: 1.95;
+        }
+      }
+
+      /* ============ MODAL / LIGHTBOX ============ */
+      .modal-container {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        z-index: 200;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .modal-container.active {
+        visibility: visible;
+        pointer-events: all;
+      }
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: #3a1526;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--tr);
+        z-index: 1;
+      }
+      .overlay.active {
+        opacity: 0.78;
+        visibility: visible;
+      }
+      .lightbox {
+        position: relative;
+        z-index: 5;
+        background: var(--white);
+        border-radius: 24px;
+        width: min(96vw, 1100px);
+        max-width: 96vw;
+        min-width: 0;
+        max-height: 96vh;
+        padding: 18px;
+        overflow: hidden;
+        box-shadow: 0 30px 70px rgba(74, 36, 56, 0.4);
+        transform: scale(0.92);
+        transition: var(--tr);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+      }
+      .modal-container.active .lightbox {
+        transform: scale(1);
+      }
+      .modal-close-btn {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        z-index: 20;
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: var(--grad-btn);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-soft);
+      }
+      .modal-img-wrapper {
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 14px;
+        background: var(--pink-cloud);
+      }
+      .modal-img-wrapper img {
+        width: 100%;
+        max-height: 78vh;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+      }
+      /* تكبير الشهادات بجودتها ونسبها الأصلية */
+      .cert-item .project-img img {
+        cursor: zoom-in;
+      }
+      .modal-container.cert-modal .modal-img-wrapper {
+        background: #fff;
+      }
+      .modal-container.cert-modal .modal-img-wrapper img {
+        max-height: 82vh;
+        object-fit: contain;
+      }
+
+      .modal-title {
+        font-family: var(--ff-head);
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--pink-deep);
+        margin-bottom: 6px;
+      }
+      .modal-desc {
+        font-size: 13px;
+        color: var(--plum-soft);
+      }
+
+      @media (max-width: 560px) {
+        .lightbox {
+          width: 96vw;
+          max-width: 96vw;
+          max-height: 94vh;
+          padding: 10px;
+          border-radius: 18px;
+        }
+        .modal-img-wrapper img {
+          max-width: 100%;
+          max-height: calc(94vh - 105px);
+        }
+        .modal-container.cert-modal .lightbox {
+          width: 96vw;
+          max-width: 96vw;
+          max-height: 94vh;
+          padding: 8px;
+        }
+        .modal-container.cert-modal .modal-img-wrapper img {
+          max-width: 100%;
+          max-height: calc(94vh - 30px);
+        }
+        .modal-close-btn {
+          top: 6px;
+          left: 6px;
+          z-index: 10;
+        }
+      }
+
+      /* ============ FOOTER NOTE ============ */
+      .made-note {
+        text-align: center;
+        font-size: 12px;
+        color: var(--plum-soft);
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      /* ============ RESPONSIVE ============ */
+      @media (min-width: 520px) {
+        .gallery-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .stats-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .input-wrapper {
+          grid-template-columns: 1fr 1fr;
+        }
+        .service-list {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (min-width: 860px) {
+        main {
+          display: grid;
+          grid-template-columns: 300px 1fr;
+          gap: 22px;
+          align-items: start;
+          padding: 26px 26px 40px;
+        }
+        .sidebar {
+          position: sticky;
+          top: 26px;
+          max-height: unset;
+          overflow: visible;
+          padding: 30px;
+        }
+        .sidebar-info {
+          flex-direction: column;
+          text-align: center;
+        }
+        .avatar-box {
+          width: 130px;
+          height: 130px;
+          font-size: 50px;
+          border-radius: 32px;
+          margin-bottom: 6px;
+        }
+        .info-more-btn {
+          display: none;
+        }
+        .sidebar-info_more {
+          opacity: 1;
+          visibility: visible;
+          margin-top: 10px;
+        }
+        .contacts-list {
+          grid-template-columns: 1fr;
+        }
+        .social-list {
+          justify-content: center;
+        }
+
+        .navbar {
+          position: static;
+          background: transparent;
+          backdrop-filter: none;
+          border: none;
+          box-shadow: none;
+          padding: 0;
+          margin-bottom: 20px;
+        }
+        .navbar-list {
+          justify-content: flex-start;
+          background: var(--white);
+          border: 1px solid var(--border-soft);
+          border-radius: 20px;
+          padding: 10px;
+          box-shadow: var(--shadow-soft);
+        }
+        article {
+          padding: 34px;
+        }
+        .gallery-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (min-width: 1100px) {
+        .gallery-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      /* ============ NEW PINK RIBBON IDENTITY ============ */
+      :root {
+        --pink-glass: rgba(255, 151, 190, 0.28);
+        --pink-glass-strong: rgba(255, 111, 163, 0.52);
+        --pink-line: rgba(242, 87, 143, 0.22);
+        --paper: rgba(255, 255, 255, 0.82);
+      }
+
+      body {
+        position: relative;
+        overflow-x: hidden;
+        background:
+          radial-gradient(
+            circle at 8% 7%,
+            rgba(255, 190, 216, 0.42),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at 94% 34%,
+            rgba(255, 211, 229, 0.55),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 12% 92%,
+            rgba(255, 204, 225, 0.48),
+            transparent 27%
+          ),
+          linear-gradient(135deg, #fffafd 0%, #fff1f7 48%, #fffafd 100%);
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        pointer-events: none;
+        z-index: -2;
+        border-radius: 50%;
+        filter: blur(2px);
+      }
+
+      body::before {
+        width: 48vw;
+        height: 18vw;
+        top: 8vh;
+        left: -13vw;
+        border: 2px solid rgba(255, 142, 184, 0.16);
+        transform: rotate(17deg);
+        box-shadow:
+          0 0 0 22px rgba(255, 169, 201, 0.06),
+          0 0 0 48px rgba(255, 169, 201, 0.035);
+      }
+
+      body::after {
+        width: 44vw;
+        height: 18vw;
+        right: -12vw;
+        bottom: 9vh;
+        border: 2px solid rgba(255, 142, 184, 0.14);
+        transform: rotate(-19deg);
+        box-shadow:
+          0 0 0 25px rgba(255, 169, 201, 0.055),
+          0 0 0 54px rgba(255, 169, 201, 0.03);
+      }
+
+      .site-decoration {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .heart {
+        position: absolute;
+        color: rgba(242, 87, 143, 0.18);
+        text-shadow: 0 5px 18px rgba(242, 87, 143, 0.12);
+        animation: floatHeart 7s ease-in-out infinite;
+        user-select: none;
+      }
+
+      .heart-a {
+        top: 11%;
+        left: 6%;
+        font-size: 28px;
+        animation-delay: -1s;
+      }
+      .heart-b {
+        top: 29%;
+        right: 8%;
+        font-size: 18px;
+        animation-delay: -4s;
+      }
+      .heart-c {
+        top: 57%;
+        left: 4%;
+        font-size: 22px;
+        animation-delay: -2.5s;
+      }
+      .heart-d {
+        top: 73%;
+        right: 6%;
+        font-size: 30px;
+        animation-delay: -5s;
+      }
+      .heart-e {
+        top: 43%;
+        left: 47%;
+        font-size: 13px;
+        animation-delay: -3.5s;
+      }
+      .heart-f {
+        top: 87%;
+        left: 42%;
+        font-size: 17px;
+        animation-delay: -6s;
+      }
+
+      @keyframes floatHeart {
+        0%,
+        100% {
+          transform: translate3d(0, 0, 0) rotate(-7deg);
+          opacity: 0.42;
+        }
+        50% {
+          transform: translate3d(0, -13px, 0) rotate(7deg);
+          opacity: 0.9;
+        }
+      }
+
+      .ribbon {
+        position: absolute;
+        display: block;
+        width: 46vw;
+        height: 16vw;
+        min-width: 260px;
+        min-height: 95px;
+        border: 2px solid rgba(255, 126, 171, 0.12);
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-radius: 50%;
+        filter: blur(0.15px);
+        transform-origin: center;
+      }
+
+      .ribbon::after {
+        content: "";
+        position: absolute;
+        inset: 12% 7%;
+        border: 1px solid rgba(255, 126, 171, 0.09);
+        border-radius: inherit;
+      }
+
+      .ribbon-one {
+        top: 4%;
+        left: -11%;
+        transform: rotate(13deg);
+      }
+      .ribbon-two {
+        top: 38%;
+        right: -13%;
+        transform: rotate(-20deg);
+      }
+      .ribbon-three {
+        bottom: 1%;
+        left: -8%;
+        transform: rotate(15deg);
+      }
+
+      .sidebar,
+      article {
+        position: relative;
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.94),
+          rgba(255, 244, 249, 0.86)
+        );
+        box-shadow:
+          0 18px 55px rgba(226, 80, 140, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(12px);
+      }
+
+      .sidebar::after,
+      article::after {
+        content: "♥";
+        position: absolute;
+        top: 12px;
+        inset-inline-end: 17px;
+        font-size: 13px;
+        color: rgba(242, 87, 143, 0.18);
+        pointer-events: none;
+      }
+
+      .section-heading h2,
+      .block-title h3 {
+        letter-spacing: 0.1px;
+      }
+
+      .project-item,
+      .service-item,
+      .timeline-item,
+      .article-card,
+      .stat-card,
+      .whatsapp-contact-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .project-item::before,
+      .service-item::before,
+      .timeline-item::before,
+      .article-card::before {
+        content: "♥";
+        position: absolute;
+        top: 8px;
+        left: 10px;
+        color: rgba(242, 87, 143, 0.1);
+        font-size: 12px;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .project-item:hover,
+      .service-item:hover,
+      .timeline-item:hover,
+      .article-card:hover {
+        border-color: rgba(242, 87, 143, 0.38);
+        box-shadow: 0 20px 45px rgba(226, 80, 140, 0.18);
+      }
+
+      /* Full image is preserved in certificates/design thumbnails too. */
+      .cert-item .project-img,
+      .design-item .project-img {
+        aspect-ratio: 4 / 3;
+        background: linear-gradient(145deg, #fff, #fff4f8);
+      }
+
+      .cert-item .project-img img,
+      .design-item .project-img img {
+        object-fit: contain;
+        padding: 7px;
+        background: #fff;
+      }
+
+      .project-img {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .project-img .zoom-hint {
+        background: rgba(194, 63, 112, 0);
+        backdrop-filter: blur(0);
+      }
+
+      .project-img:hover .zoom-hint,
+      .project-img:focus-within .zoom-hint {
+        backdrop-filter: blur(3px);
+      }
+
+      /* ============ STRONGER, MOBILE-SAFE LIGHTBOX ============ */
+      body.modal-open {
+        overflow: hidden;
+        touch-action: none;
+      }
+
+      .modal-container {
+        padding: max(12px, env(safe-area-inset-top))
+          max(12px, env(safe-area-inset-right))
+          max(12px, env(safe-area-inset-bottom))
+          max(12px, env(safe-area-inset-left));
+      }
+
+      .overlay {
+        background:
+          radial-gradient(
+            circle at 50% 40%,
+            rgba(255, 151, 190, 0.18),
+            transparent 35%
+          ),
+          #24101a;
+        backdrop-filter: blur(8px);
+      }
+
+      .lightbox {
+        width: min(96vw, 1180px);
+        height: min(94vh, 920px);
+        max-width: 1180px;
+        max-height: 94vh;
+        padding: 18px;
+        border: 1px solid rgba(242, 87, 143, 0.22);
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(255, 244, 249, 0.96)
+        );
+        box-shadow:
+          0 30px 90px rgba(74, 36, 56, 0.45),
+          0 0 0 1px rgba(255, 255, 255, 0.55) inset;
+        overflow: hidden;
+      }
+
+      .lightbox::before {
+        content: "♥";
+        position: absolute;
+        top: 13px;
+        right: 20px;
+        color: rgba(242, 87, 143, 0.16);
+        font-size: 15px;
+        pointer-events: none;
+      }
+
+      .modal-image-stage {
+        position: relative;
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .modal-img-wrapper {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        border-radius: 18px;
+        overflow: hidden;
+        background:
+          radial-gradient(
+            circle at 50% 40%,
+            rgba(255, 204, 225, 0.45),
+            transparent 55%
+          ),
+          #fff;
+        border: 1px solid rgba(242, 87, 143, 0.12);
+        touch-action: none;
+      }
+
+      .modal-img-wrapper img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 100%;
+        object-fit: contain;
+        user-select: none;
+        -webkit-user-drag: none;
+        cursor: zoom-in;
+        transform: translate3d(0, 0, 0) scale(1);
+        transform-origin: center center;
+        transition: transform 0.22s ease;
+        will-change: transform;
+      }
+
+      .modal-container.cert-modal .modal-img-wrapper {
+        background: #fff;
+      }
+
+      .modal-container.cert-modal .modal-img-wrapper img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        padding: 4px;
+      }
+
+      .modal-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 12;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.92);
+        color: var(--pink-deep);
+        border: 1px solid rgba(242, 87, 143, 0.18);
+        box-shadow: 0 8px 25px rgba(74, 36, 56, 0.16);
+        transition: 0.22s ease;
+      }
+
+      .modal-nav:hover {
+        transform: translateY(-50%) scale(1.08);
+        background: var(--grad-btn);
+        color: #fff;
+      }
+
+      .modal-prev {
+        right: 12px;
+      }
+      .modal-next {
+        left: 12px;
+      }
+
+      .zoom-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin: 10px auto 4px;
+        flex: 0 0 auto;
+      }
+
+      .zoom-controls button {
+        width: 38px;
+        height: 34px;
+        border-radius: 11px;
+        background: #fff;
+        border: 1px solid var(--border-soft);
+        color: var(--pink-deep);
+        box-shadow: 0 5px 16px rgba(226, 80, 140, 0.1);
+        transition: 0.2s ease;
+      }
+
+      .zoom-controls button:hover {
+        background: var(--pink-cloud);
+        transform: translateY(-2px);
+      }
+
+      .modal-title,
+      .modal-desc {
+        flex: 0 0 auto;
+      }
+
+      .modal-container.article-modal .modal-image-stage,
+      .modal-container.article-modal .zoom-controls {
+        display: none;
+      }
+
+      .modal-container.article-modal .lightbox {
+        height: min(94vh, 920px);
+      }
+
+      .article-reader {
+        flex: 1 1 auto;
+        min-height: 0;
+        max-height: none;
+        overscroll-behavior: contain;
+      }
+
+      /* ============ NAVIGATION / RESPONSIVE HARDENING ============ */
+      .navbar-list {
+        scrollbar-width: none;
+      }
+      .navbar-list::-webkit-scrollbar {
+        display: none;
+      }
+
+      @media (max-width: 859px) {
+        main {
+          width: 100%;
+          max-width: 760px;
+          padding: max(12px, env(safe-area-inset-top))
+            max(12px, env(safe-area-inset-right))
+            calc(84px + env(safe-area-inset-bottom))
+            max(12px, env(safe-area-inset-left));
+        }
+
+        .sidebar {
+          width: 100%;
+        }
+
+        .navbar {
+          padding: 7px max(8px, env(safe-area-inset-left))
+            calc(7px + env(safe-area-inset-bottom))
+            max(8px, env(safe-area-inset-right));
+        }
+
+        .navbar-list {
+          justify-content: flex-start;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          width: 100%;
+        }
+
+        .navbar-link {
+          white-space: nowrap;
+          min-width: max-content;
+        }
+
+        article {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .sidebar,
+        article {
+          border-radius: 21px;
+          padding: 14px;
+        }
+
+        .sidebar-info {
+          gap: 11px;
+          padding-inline-end: 0;
+        }
+
+        .avatar-box {
+          width: 70px;
+          height: 70px;
+          border-radius: 20px;
+          font-size: 27px;
+        }
+
+        .avatar-box .bow {
+          transform: scale(0.82);
+          transform-origin: top right;
+        }
+
+        .info-content .name {
+          font-size: 16px;
+        }
+        .info-content .title {
+          font-size: 10.5px;
+          padding: 3px 9px;
+        }
+
+        .info-more-btn {
+          position: static;
+          margin-inline-start: auto;
+          flex-shrink: 0;
+          padding: 7px 9px;
+          font-size: 11px;
+        }
+
+        .section-heading {
+          gap: 7px;
+          margin-bottom: 16px;
+        }
+
+        .section-heading h2 {
+          font-size: 19px;
+        }
+        .bow-lg {
+          width: 38px;
+          height: 24px;
+        }
+
+        .gallery-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 9px;
+        }
+
+        .project-item {
+          border-radius: 15px;
+        }
+        .project-img {
+          aspect-ratio: 1 / 0.86;
+        }
+        .cert-item .project-img,
+        .design-item .project-img {
+          aspect-ratio: 1 / 1;
+        }
+
+        .project-info {
+          padding: 9px 9px 11px;
+        }
+        .project-info h4,
+        .cert-item h4,
+        .design-item h4 {
+          font-size: 11px;
+        }
+
+        .project-info p {
+          font-size: 10px;
+        }
+        .project-tags {
+          gap: 4px;
+          margin-top: 7px;
+        }
+        .project-tags span {
+          font-size: 9px;
+          padding: 2px 7px;
+        }
+
+        .lightbox {
+          width: calc(100vw - 16px);
+          height: calc(100dvh - 16px);
+          max-height: calc(100dvh - 16px);
+          padding: 8px;
+          border-radius: 18px;
+        }
+
+        .modal-img-wrapper {
+          border-radius: 13px;
+        }
+
+        .modal-nav {
+          width: 36px;
+          height: 36px;
+        }
+
+        .modal-prev {
+          right: 6px;
+        }
+        .modal-next {
+          left: 6px;
+        }
+
+        .modal-close-btn {
+          top: 6px;
+          left: 6px;
+          width: 36px;
+          height: 36px;
+        }
+
+        .modal-title {
+          font-size: 14px;
+          margin-top: 5px;
+        }
+
+        .modal-desc {
+          font-size: 11px;
+          line-height: 1.65;
+        }
+
+        .zoom-controls {
+          margin: 7px auto 2px;
+        }
+
+        .zoom-controls button {
+          width: 34px;
+          height: 31px;
+        }
+
+        .heart {
+          opacity: 0.55;
+        }
+      }
+
+      @media (max-width: 370px) {
+        main {
+          padding-inline: 8px;
+        }
+        .gallery-grid {
+          gap: 7px;
+        }
+        .navbar-link {
+          padding-inline: 10px;
+          font-size: 11px;
+        }
+        .info-more-btn span {
+          display: none;
+        }
+        .info-more-btn {
+          width: 35px;
+          justify-content: center;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============ PINK RIBBONS + HEARTS DECORATION ============ -->
+    <div class="site-decoration" aria-hidden="true">
+      <span class="ribbon ribbon-one"></span>
+      <span class="ribbon ribbon-two"></span>
+      <span class="ribbon ribbon-three"></span>
+      <span class="heart heart-a">♥</span>
+      <span class="heart heart-b">♥</span>
+      <span class="heart heart-c">♥</span>
+      <span class="heart heart-d">♥</span>
+      <span class="heart heart-e">♥</span>
+      <span class="heart heart-f">♥</span>
+    </div>
+    <main>
+      <!-- ============ SIDEBAR ============ -->
+      <aside class="sidebar" data-sidebar>
+        <div class="sidebar-info">
+          <div class="avatar-box">
+            لين
+            <svg
+              class="bow"
+              viewBox="0 0 100 60"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M50 30 L5 5 A10 10 0 0 0 5 55 Z" fill="#fff" />
+              <path d="M50 30 L95 5 A10 10 0 0 1 95 55 Z" fill="#fff" />
+              <circle cx="50" cy="30" r="9" fill="#f2578f" />
+            </svg>
+          </div>
+          <div class="info-content">
+            <h1 class="name">لين حسن الكردي</h1>
+            <p class="title">Frontend Developer · Content Creator</p>
+          </div>
+          <button class="info-more-btn" data-sidebar-btn>
+            <span>عرض المزيد</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+        </div>
+
+        <div class="sidebar-info_more">
+          <div class="separator"></div>
+          <ul class="contacts-list">
+            <li class="contact-item">
+              <div class="icon-box">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <div class="contact-info">
+                <p class="contact-title">التخصص</p>
+                <p class="contact-link">هندسة معلوماتية - سنة ثالثة</p>
+              </div>
+            </li>
+            <li class="contact-item">
+              <div class="icon-box"><i class="fa-brands fa-whatsapp"></i></div>
+              <div class="contact-info">
+                <p class="contact-title">واتساب</p>
+                <a
+                  href="https://wa.me/963937015714"
+                  target="_blank"
+                  class="contact-link"
+                  >0937 015 714</a
+                >
+              </div>
+            </li>
+            <li class="contact-item">
+              <div class="icon-box"><i class="fa-solid fa-envelope"></i></div>
+              <div class="contact-info">
+                <p class="contact-title">البريد الإلكتروني</p>
+                <p class="contact-link">leenalkourdi58@gmail.com</p>
+              </div>
+            </li>
+            <li class="contact-item">
+              <div class="icon-box"><i class="fa-solid fa-briefcase"></i></div>
+              <div class="contact-info">
+                <p class="contact-title">الحالة</p>
+                <p class="contact-link">متاحة لاستقبال المشاريع</p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="separator"></div>
+
+          <ul class="social-list">
+            <li>
+              <a
+                href="https://www.facebook.com/share/1GbQSSADtv/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fa-brands fa-facebook-f"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/leen_krdi?stkn=MW85YjhyZDhyODhqcQ=="
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/leen-alkourdi-81091336b?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                target="_blank"
+                aria-label="LinkedIn"
+                ><i class="fa-brands fa-linkedin-in"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://t.me/Information_techno_l"
+                target="_blank"
+                aria-label="Telegram"
+                ><i class="fa-brands fa-telegram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://wa.me/963937015714"
+                target="_blank"
+                aria-label="WhatsApp"
+                ><i class="fa-brands fa-whatsapp"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <div class="content-wrapper">
+        <!-- ============ NAVBAR ============ -->
+        <nav class="navbar">
+          <ul class="navbar-list">
+            <li>
+              <button class="navbar-link active" data-nav-link>نبذة عني</button>
+            </li>
+            <li>
+              <button class="navbar-link" data-nav-link>السيرة الذاتية</button>
+            </li>
+            <li><button class="navbar-link" data-nav-link>أعمالي</button></li>
+            <li>
+              <button class="navbar-link" data-nav-link>تواصل معي</button>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- ============ ABOUT ============ -->
+        <article class="about active" data-page="نبذة عني">
+          <div class="section-heading">
+            <svg
+              class="bow-lg"
+              viewBox="0 0 100 60"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M50 30 L5 5 A10 10 0 0 0 5 55 Z" fill="#ff8fb8" />
+              <path d="M50 30 L95 5 A10 10 0 0 1 95 55 Z" fill="#ff8fb8" />
+              <circle cx="50" cy="30" r="9" fill="#c23f70" />
+            </svg>
+            <h2>نبذة عني</h2>
+          </div>
+
+          <div class="about-text">
+            <p>
+              أنا <strong>لين حسن الكردي</strong>، مطورة واجهات أمامية شابة،
+              أبلغ من العمر 20 عامًا، وأدرس
+              <strong>هندسة المعلوماتية</strong> (السنة الثالثة – بتقدير
+              امتياز).
+            </p>
+            <p>
+              شغفي يمزج بين <strong>البرمجة والتصميم</strong>، فأنا لا أكتفي
+              بجعل الكود يعمل، بل أحرص أن تكون النتيجة النهائية جميلة وسهلة
+              الاستخدام ومتجاوبة مع جميع الشاشات.
+            </p>
+            <p>
+              كما أعمل <strong>صانعة محتوى</strong>، وأشارك مقالات ومواد معرفية
+              تجمع بين التقنية، البرمجة، التصميم وتطوير الذات بأسلوب مبسّط
+              ومفيد.
+            </p>
+            <p>
+              طموحي أن أتوسع نحو <strong>Backend Development</strong> و<strong
+                >Flutter</strong
+              >
+              لأصبح مطورة برمجيات متكاملة، وفي المدى البعيد أسعى لأن أصبح دكتورة
+              وأدرّس في الجامعة.
+            </p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="num">4+</div>
+              <div class="lbl">مشاريع منجزة</div>
+            </div>
+            <div class="stat-card">
+              <div class="num">+9</div>
+              <div class="lbl">شهادات</div>
+            </div>
+            <div class="stat-card">
+              <div class="num">7</div>
+              <div class="lbl">أعمال تصميم</div>
+            </div>
+            <div class="stat-card">
+              <div class="num">4+</div>
+              <div class="lbl">لغات وتقنيات</div>
+            </div>
+            <div class="stat-card">
+              <div class="num">+4</div>
+              <div class="lbl">مقالات ومحتوى</div>
+            </div>
+          </div>
+
+          <div class="separator"></div>
+
+          <div class="block-title"><h3>خدماتي</h3></div>
+          <div class="service-list">
+            <div class="service-item">
+              <div class="icon-box">
+                <i class="fa-solid fa-laptop-code"></i>
+              </div>
+              <div>
+                <p class="h4">تصميم وتطوير مواقع الويب</p>
+                <p>بناء مواقع متكاملة، منظمة، ومتجاوبة مع جميع الأجهزة.</p>
+              </div>
+            </div>
+            <div class="service-item">
+              <div class="icon-box"><i class="fa-solid fa-palette"></i></div>
+              <div>
+                <p class="h4">تصميم واجهات المستخدم</p>
+                <p>واجهات جذابة، مريحة للعين وسهلة الاستخدام.</p>
+              </div>
+            </div>
+            <div class="service-item">
+              <div class="icon-box"><i class="fa-solid fa-file-alt"></i></div>
+              <div>
+                <p class="h4">(Landing Pages)</p>
+                <p>صفحات تسويقية احترافية تركّز على الهدف.</p>
+              </div>
+            </div>
+            <div class="service-item">
+              <div class="icon-box"><i class="fa-solid fa-bullhorn"></i></div>
+              <div>
+                <p class="h4">تصميم منشورات وإعلانات</p>
+                <p>تصاميم بصرية جاهزة للشركات والعلامات التجارية.</p>
+              </div>
+            </div>
+            <div class="service-item">
+              <div class="icon-box"><i class="fa-solid fa-pen-nib"></i></div>
+              <div>
+                <p class="h4">صناعة المحتوى والمقالات</p>
+                <p>
+                  كتابة ونشر مقالات ومحتوى معرفي مبسّط في مجالات التقنية
+                  والبرمجة وتطوير الذات.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ============ RESUME ============ -->
+        <article class="resume" data-page="السيرة الذاتية">
+          <div class="section-heading">
+            <svg
+              class="bow-lg"
+              viewBox="0 0 100 60"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M50 30 L5 5 A10 10 0 0 0 5 55 Z" fill="#ff8fb8" />
+              <path d="M50 30 L95 5 A10 10 0 0 1 95 55 Z" fill="#ff8fb8" />
+              <circle cx="50" cy="30" r="9" fill="#c23f70" />
+            </svg>
+            <h2>السيرة الذاتية</h2>
+          </div>
+
+          <div class="timeline">
+            <div class="title-wrapper">
+              <div class="icon-box">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <h3 class="h3">التعليم</h3>
+            </div>
+            <div class="timeline-list">
+              <div class="timeline-item">
+                <p class="h4">هندسة المعلوماتية</p>
+                <span>السنة الثالثة - بتقدير امتياز</span>
+                <p>
+                  دراسة متعمقة في أساسيات البرمجة، هندسة البرمجيات، وقواعد
+                  البيانات، إلى جانب التطوير الذاتي في مجال الواجهات الأمامية.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="title-wrapper">
+              <div class="icon-box">
+                <i class="fa-solid fa-chalkboard-teacher"></i>
+              </div>
+              <h3 class="h3">خبرة التدريس</h3>
+            </div>
+            <div class="timeline-list">
+              <div class="timeline-item">
+                <p class="h4">تدريس خصوصي لمراحل متعددة</p>
+                <span
+                  >البكالوريا · الصف العاشر · الصف السابع · الصف الرابع</span
+                >
+                <p>
+                  رياضيات، فيزياء، كيمياء، واللغة الإنكليزية ما صقل مهاراتي في
+                  التواصل والشرح وتحمل المسؤولية.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="title-wrapper">
+              <div class="icon-box"><i class="fa-solid fa-pen-nib"></i></div>
+              <h3 class="h3">صناعة المحتوى</h3>
+            </div>
+            <div class="timeline-list">
+              <div class="timeline-item">
+                <p class="h4">صانعة محتوى وكاتبة مقالات</p>
+                <span>محتوى تقني ومعرفي</span>
+                <p>
+                  أكتب وأنشر مقالات ومحتوى يقدّم أفكارًا ومعلومات مفيدة في
+                  التقنية، البرمجة، التصميم وتطوير الذات بأسلوب واضح وسهل.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="separator"></div>
+
+          <div class="title-wrapper">
+            <div class="icon-box"><i class="fa-solid fa-code"></i></div>
+            <h3 class="h3">المهارات التقنية</h3>
+          </div>
+          <div class="skills-list">
+            <div class="skill-item">
+              <div class="skill-top"><span>HTML</span><span>90%</span></div>
+              <div class="skill-bar"><span style="width: 90%"></span></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-top"><span>CSS</span><span>85%</span></div>
+              <div class="skill-bar"><span style="width: 85%"></span></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-top">
+                <span>Bootstrap</span><span>70%</span>
+              </div>
+              <div class="skill-bar"><span style="width: 70%"></span></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-top">
+                <span>JavaScript</span><span>55% - قيد التطوير</span>
+              </div>
+              <div class="skill-bar"><span style="width: 55%"></span></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-top"><span>C++</span><span>75%</span></div>
+              <div class="skill-bar"><span style="width: 75%"></span></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-top"><span>GitHub</span><span>65%</span></div>
+              <div class="skill-bar"><span style="width: 65%"></span></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ============ PORTFOLIO ============ -->
+        <article class="portfolio" data-page="أعمالي">
+          <div class="section-heading">
+            <svg
+              class="bow-lg"
+              viewBox="0 0 100 60"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M50 30 L5 5 A10 10 0 0 0 5 55 Z" fill="#ff8fb8" />
+              <path d="M50 30 L95 5 A10 10 0 0 1 95 55 Z" fill="#ff8fb8" />
+              <circle cx="50" cy="30" r="9" fill="#c23f70" />
+            </svg>
+            <h2>أعمالي</h2>
+          </div>
+
+          <!-- المشاريع -->
+          <div class="portfolio-block">
+            <div class="block-title">
+              <div
+                class="icon-box"
+                style="width: 36px; height: 36px; font-size: 14px"
+              >
+                <i class="fa-solid fa-diagram-project"></i>
+              </div>
+              <h3>المشاريع</h3>
+            </div>
+            <div class="gallery-grid">
+              <div class="project-item">
+                <div class="project-img">
+                  <img
+                    src="https://placehold.co/400x300/1a2a3a/c9a84c?text=Coursyria"
+                    alt="Coursyria"
+                    data-desc="موقع لفريق كورسات - صممت الواجهة بالكامل وبنيت الهيكل وعالجت الأخطاء يدويًا."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info">
+                  <h4>Coursyria</h4>
+                  <p>موقع فريق كورسات تعليمي</p>
+                  <div class="project-tags">
+                    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                  </div>
+                  <a
+                    href="https://coursyriateam.github.io/coursyria/"
+                    target="_blank"
+                    class="project-link"
+                    >معاينة المشروع <i class="fa-solid fa-arrow-left"></i
+                  ></a>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-img">
+                  <img
+                    src="https://placehold.co/400x300/ffb6d5/c23f70?text=Company+Site"
+                    alt="موقع شركة"
+                    data-desc="موقع بسيط لشركة يعرض الخدمات والمعلومات الأساسية."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info">
+                  <h4>موقع شركة</h4>
+                  <p>عرض خدمات ومعلومات أساسية</p>
+                  <div class="project-tags">
+                    <span>HTML</span><span>CSS</span>
+                  </div>
+                  <a
+                    href=" https://leen-alkourdi.github.io/my-website-done/"
+                    target="_blank"
+                    class="project-link"
+                    >معاينة المشروع <i class="fa-solid fa-arrow-left"></i
+                  ></a>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-img">
+                  <img
+                    src="https://placehold.co/400x300/ff8fb8/ffffff?text=Currency"
+                    alt="تحويل العملات"
+                    data-desc="أداة لتحويل العملات بين القديمة والجديدة."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info">
+                  <h4>تحويل العملات</h4>
+                  <p>أداة تحويل عملات تفاعلية</p>
+                  <div class="project-tags">
+                    <span>JavaScript</span><span>CSS</span>
+                  </div>
+                  <a
+                    href="https://leen-alkourdi.github.io/Leen_Hasan_AL_kordi/"
+                    target="_blank"
+                    class="project-link"
+                    >معاينة المشروع <i class="fa-solid fa-arrow-left"></i
+                  ></a>
+                </div>
+              </div>
+              <div class="project-item featured-project">
+                <div class="project-img">
+                  <div class="project-placeholder project-placeholder-return">
+                    <i class="fa-solid fa-code"></i>
+                    <span>Return Programmer</span>
+                    <small>Portfolio Website</small>
+                  </div>
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </div>
+                </div>
+                <div class="project-info">
+                  <h4>Return Programmer</h4>
+                  <p>موقع ويب يعكس هويتي كمطورة واجهات أمامية وصانعة محتوى.</p>
+                  <div class="project-tags">
+                    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                  </div>
+                  <a
+                    href="https://returnprogramming.github.io/ReturnProgrammer/"
+                    target="_blank"
+                    rel="noopener"
+                    class="project-link"
+                  >
+                    زيارة الموقع <i class="fa-solid fa-arrow-left"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- الشهادات -->
+          <div class="portfolio-block">
+            <div class="block-title">
+              <div
+                class="icon-box"
+                style="width: 36px; height: 36px; font-size: 14px"
+              >
+                <i class="fa-solid fa-certificate"></i>
+              </div>
+              <h3>الشهادات</h3>
+            </div>
+            <p class="block-note">اضغطي على أي شهادة لتكبيرها</p>
+            <div class="gallery-grid">
+              <div class="project-item cert-item">
+                <div class="project-img">
+                  <img
+                    src="شهادات/1.png"
+                    alt="دورة أبو هدهود 1"
+                    data-desc="شهادة إتمام دورة من منصة أبو هدهود."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>دورة أبو هدهود 1</h4></div>
+              </div>
+              <div class="project-item cert-item">
+                <div class="project-img">
+                  <img
+                    src="شهادات/2.png"
+                    alt="دورة أبو هدهود 2"
+                    data-desc="شهادة إتمام دورة من منصة أبو هدهود."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>دورة أبو هدهود 2</h4></div>
+              </div>
+              <div class="project-item cert-item">
+                <div class="project-img">
+                  <img
+                    src="شهادات/3.png"
+                    alt="دورة أبو هدهود 3"
+                    data-desc="شهادة إتمام دورة من منصة أبو هدهود."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>دورة أبو هدهود 3</h4></div>
+              </div>
+              <div class="project-item cert-item">
+                <div class="project-img">
+                  <img
+                    src="شهادات/4.png"
+                    alt="دورة أبو هدهود 4"
+                    data-desc="شهادة إتمام دورة من منصة أبو هدهود."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>دورة أبو هدهود 4</h4></div>
+              </div>
+              <div class="project-item cert-item">
+                <div class="project-img">
+                  <img
+                    src="شهادات/5.png"
+                    alt="دورة أبو هدهود 5"
+                    data-desc="شهادة إتمام دورة من منصة أبو هدهود."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>دورة أبو هدهود 5</h4></div>
+              </div>
+              <div class="project-item cert-item">
+                <div class="project-img">
+                  <img
+                    src="شهادات/icdl.png"
+                    alt="شهادة ICDL"
+                    data-desc="شهادة رخصة القيادة الدولية لاستخدام الحاسوب ICDL."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>ICDL</h4></div>
+              </div>
+              <div class="project-item cert-item">
+                <div class="project-img">
+                  <img
+                    src="شهادات/ادراك.png"
+                    alt="دورة إدراك 1"
+                    data-desc="شهادة إتمام دورة من منصة إدراك."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>دورة إدراك 1</h4></div>
+              </div>
+              <div class="project-item cert-item">
+                <div class="project-img">
+                  <img
+                    src="شهادات/ادراك2.png"
+                    alt="دورة إدراك 2"
+                    data-desc="شهادة إتمام دورة من منصة إدراك."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>دورة إدراك 2</h4></div>
+              </div>
+              <div class="project-item cert-item">
+                <div class="project-img">
+                  <img
+                    src="شهادات/hp.png"
+                    alt="شهادة HP LIFE"
+                    data-desc="شهادة إتمام دورة من منصة HP LIFE."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>HP LIFE</h4></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- أعمال التصميم -->
+          <div class="portfolio-block">
+            <div class="block-title">
+              <div
+                class="icon-box"
+                style="width: 36px; height: 36px; font-size: 14px"
+              >
+                <i class="fa-solid fa-brush"></i>
+              </div>
+              <h3>أعمال التصميم</h3>
+            </div>
+            <p class="block-note">
+              اضغطي على أي تصميم لعرض لمحة عنه وتكبير الصورة
+            </p>
+            <div class="gallery-grid">
+              <div class="project-item design-item">
+                <div class="project-img">
+                  <img
+                    src="تصاميم/1.jpeg"
+                    alt="تصميم لشركة نقل 1"
+                    data-desc="لمحة سريعة عن هذا التصميم - عدّلي هذا النص لاحقًا."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>تصميم لشركة نقل 1</h4></div>
+              </div>
+              <div class="project-item design-item">
+                <div class="project-img">
+                  <img
+                    src="تصاميم/2.jpeg"
+                    alt="تصميم لشركة نقل 2"
+                    data-desc="لمحة سريعة عن هذا التصميم - عدّلي هذا النص لاحقًا."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>تصميم لشركة نقل 2</h4></div>
+              </div>
+              <div class="project-item design-item">
+                <div class="project-img">
+                  <img
+                    src="تصاميم/3.jpeg"
+                    alt="تصميم لشركة نقل 3"
+                    data-desc="لمحة سريعة عن هذا التصميم - عدّلي هذا النص لاحقًا."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>تصميم لشركة نقل 3</h4></div>
+              </div>
+              <div class="project-item design-item">
+                <div class="project-img">
+                  <img
+                    src="تصاميم/4.jpeg"
+                    alt="تصميم لشركة نقل 4"
+                    data-desc="لمحة سريعة عن هذا التصميم - عدّلي هذا النص لاحقًا."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>تصميم لشركة نقل 4</h4></div>
+              </div>
+              <div class="project-item design-item">
+                <div class="project-img">
+                  <img
+                    src="تصاميم/5.jpeg"
+                    alt="تصميم لشركة نقل 5"
+                    data-desc="لمحة سريعة عن هذا التصميم - عدّلي هذا النص لاحقًا."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>تصميم لشركة نقل 5</h4></div>
+              </div>
+              <div class="project-item design-item">
+                <div class="project-img">
+                  <img
+                    src="تصاميم/6.jpeg"
+                    alt="تصميم لشركة نقل 6"
+                    data-desc="لمحة سريعة عن هذا التصميم - عدّلي هذا النص لاحقًا."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>تصميم لشركة نقل 6</h4></div>
+              </div>
+              <div class="project-item design-item">
+                <div class="project-img">
+                  <img
+                    src="تصاميم/7.jpeg"
+                    alt="تصميم لشركة نقل 7"
+                    data-desc="لمحة سريعة عن هذا التصميم - عدّلي هذا النص لاحقًا."
+                  />
+                  <div class="zoom-hint">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  </div>
+                </div>
+                <div class="project-info"><h4>تصميم لشركة نقل 7</h4></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- المقالات -->
+          <div class="portfolio-block">
+            <div class="block-title">
+              <div
+                class="icon-box"
+                style="width: 36px; height: 36px; font-size: 14px"
+              >
+                <i class="fa-solid fa-book-open"></i>
+              </div>
+              <h3>مقالاتي</h3>
+            </div>
+            <p class="block-note">
+              مقالات ومحتوى معرفي من كتاباتي بعد مشاهدة ودراسة محتوى التطوير
+              الذاتي والتقني
+            </p>
+
+            <div class="articles-grid">
+              <article class="article-card">
+                <div class="article-icon">
+                  <i class="fa-solid fa-brain"></i>
+                </div>
+                <h4>هل أنت من يتخذ قراراتك فعلًا؟</h4>
+                <p>
+                  أغلب القرارات التي تتخذها في حياتك قد لا تكون قرارات واعية منك
+                  أصلًا. اكتشف كيف تتشكل الأنماط الداخلية، ولماذا نكرر بعض
+                  السلوكيات، وكيف يبدأ الوعي باستعادة قدرتك على الاختيار.
+                </p>
+                <button class="article-read-btn" data-article="article-1">
+                  قراءة المقال <i class="fa-solid fa-arrow-left"></i>
+                </button>
+              </article>
+
+              <article class="article-card">
+                <div class="article-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h4>الدوبامين: لماذا نشعر بالكسل رغم أننا نريد النجاح؟</h4>
+                <p>
+                  الدوبامين ليس مجرد مادة للمتعة؛ بل يرتبط بالتوقع والرغبة
+                  والسعي نحو المكافأة. فكيف تؤثر المكافآت السريعة في علاقتنا
+                  بالدراسة والعمل والهاتف والعادات؟
+                </p>
+                <button class="article-read-btn" data-article="article-2">
+                  قراءة المقال <i class="fa-solid fa-arrow-left"></i>
+                </button>
+              </article>
+
+              <article class="article-card">
+                <div class="article-icon">
+                  <i class="fa-solid fa-route"></i>
+                </div>
+                <h4>قد تتأخر... فتسبق الجميع</h4>
+                <p>
+                  ربما لا يكون التأخر هو المشكلة أصلًا، بل المقارنة. لكل إنسان
+                  طريقه ووقته ونضجه، والمنافس الحقيقي ليس الأشخاص من حولك، بل
+                  نسختك القديمة.
+                </p>
+                <button class="article-read-btn" data-article="article-3">
+                  قراءة المقال <i class="fa-solid fa-arrow-left"></i>
+                </button>
+              </article>
+
+              <article class="article-card">
+                <div class="article-icon">
+                  <i class="fa-solid fa-microchip"></i>
+                </div>
+                <h4>التعفن الدماغي في عصر المحتوى السريع</h4>
+                <p>
+                  المعرفة أصبحت متاحة بضغطة زر، لكن التشتت وضعف التركيز وسرعة
+                  النسيان أصبحت تحديات يومية. كيف تصنع الخوارزميات اقتصاد
+                  الانتباه، وكيف نحمي قدرتنا على التفكير العميق؟
+                </p>
+                <button class="article-read-btn" data-article="article-4">
+                  قراءة المقال <i class="fa-solid fa-arrow-left"></i>
+                </button>
+              </article>
+            </div>
+          </div>
+        </article>
+
+        <!-- ============ CONTACT ============ -->
+        <article class="contact" data-page="تواصل معي">
+          <div class="section-heading">
+            <svg
+              class="bow-lg"
+              viewBox="0 0 100 60"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M50 30 L5 5 A10 10 0 0 0 5 55 Z" fill="#ff8fb8" />
+              <path d="M50 30 L95 5 A10 10 0 0 1 95 55 Z" fill="#ff8fb8" />
+              <circle cx="50" cy="30" r="9" fill="#c23f70" />
+            </svg>
+            <h2>تواصل معي</h2>
+          </div>
+
+          <p style="color: var(--plum-soft); font-size: 14.5px">
+            لديك فكرة مشروع أو استفسار؟ يسعدني الاستماع إليك. أرسلي رسالتك
+            مباشرة عبر واتساب وسأرد عليك في أقرب وقت.
+          </p>
+
+          <div class="whatsapp-contact-card">
+            <div class="icon-box"><i class="fa-brands fa-whatsapp"></i></div>
+            <div>
+              <strong> للتواصل على الواتس </strong>
+              <p>للاستفسارات، المشاريع والتعاون</p>
+            </div>
+            <a
+              href="https://wa.me/963937015714"
+              target="_blank"
+              rel="noopener"
+              class="form-btn whatsapp-btn"
+            >
+              إرسال رسالة <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </div>
+
+          <div class="contact-social">
+            <div class="block-title"><h3>لمتابعة صفحاتي الشخصية</h3></div>
+            <ul class="social-list">
+              <li>
+                <a
+                  href="https://www.facebook.com/share/1GbQSSADtv/"
+                  target="_blank"
+                  aria-label="Facebook"
+                  ><i class="fa-brands fa-facebook-f"></i
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/leen_krdi?stkn=MW85YjhyZDhyODhqcQ=="
+                  target="_blank"
+                  aria-label="Instagram"
+                  ><i class="fa-brands fa-instagram"></i
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/leen-alkourdi-81091336b?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                  target="_blank"
+                  aria-label="LinkedIn"
+                  ><i class="fa-brands fa-linkedin-in"></i
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://t.me/Information_techno_l"
+                  target="_blank"
+                  aria-label="Telegram"
+                  ><i class="fa-brands fa-telegram"></i
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://wa.me/963937015714"
+                  target="_blank"
+                  aria-label="WhatsApp"
+                  ><i class="fa-brands fa-whatsapp"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+
+          <p class="made-note">
+            صُنع بحب وشغف بالمحتوى والبرمجة
+            <i class="fa-solid fa-heart" style="color: var(--pink-rose)"></i>
+            وشغف بالبرمجة والتصميم
+          </p>
+        </article>
+      </div>
+    </main>
+
+    <!-- ============ MODAL / LIGHTBOX ============ -->
+    <div class="modal-container" data-modal-container>
+      <div class="overlay" data-overlay></div>
+      <div class="lightbox">
+        <button class="modal-close-btn" data-modal-close-btn>
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="article-reader" data-article-reader="article-1">
+          <button class="article-close" data-article-close aria-label="إغلاق">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <h3>هل أنت من يتخذ قراراتك فعلًا؟</h3>
+          <p>
+            في شيء مرعب لازم تفهمه: أغلب القرارات التي تتخذها في حياتك، قد لا
+            تكون قرارات واعية منك أصلًا.
+          </p>
+          <p>
+            أنت أحيانًا لا تختار كيف تتكلم، ولا كيف تغضب، ولا من تحب، ولا ممن
+            تكره، ولا حتى كيف تتصرف في بعض المواقف. أنت فقط تنفّذ برنامجًا
+            داخليًا تمّت كتابته فيك عبر سنوات طويلة.
+          </p>
+          <p>
+            كأنك تستخدم برنامجًا دون أن تعرف كيف كُتب، أو لماذا يعمل بهذه
+            الطريقة.
+          </p>
+          <p>
+            <strong>وهنا يظهر السؤال الحقيقي:</strong> من كتب كود هذا البرنامج؟
+            من جعلك بهذه الطريقة؟ من أين تأتي قراراتك؟ ولماذا تتصرف بأسلوب معين
+            دون غيره؟ ولماذا تتكرر منك نفس الأخطاء، حتى وأنت تعرف أنها أخطاء؟
+          </p>
+
+          <div class="article-subtitle">أنت لا تتصرف دائمًا كما أنت اليوم</div>
+          <p>
+            أغلب الناس يعتقدون أنهم يعيشون بوعي كامل، وأن قراراتهم ناتجة عن
+            تفكير منطقي وفلسفة شخصية واضحة. لكن الحقيقة أن جزءًا كبيرًا من
+            سلوكنا يعمل على ما يمكن تسميته "الوضع التلقائي" أو Auto-Pilot.
+          </p>
+          <p>
+            عقلك لا يحتاج في كل لحظة أن يجلس معك ويستشيرك قبل أن يتصرف. بعض ردود
+            أفعالك أصبحت تلقائية.
+          </p>
+          <p>
+            تغضب بطريقة معينة لأنك تعودت عليها. تهرب من مواقف معينة لأنك تعلمت
+            أن الهروب يحميك. تحاول إرضاء الآخرين لأنك في مرحلة ما من حياتك تعلمت
+            أن رضاهم يعني الأمان. تدافع عن نفسك حتى عندما لا يكون هناك خطر
+            حقيقي.
+          </p>
+          <p>
+            والأخطر من ذلك كله: أن تعتقد أن هذه التصرفات هي شخصيتك، بينما قد
+            تكون في الحقيقة مجرد عادات واستجابات تعلمتها مع الوقت.
+          </p>
+
+          <div class="article-subtitle">تخيل أن هناك كودًا يعمل بداخلك</div>
+          <p>
+            تخيل أنك ولدت ومعك جهاز، وهذا الجهاز يحمل برنامجًا داخليًا. مع كل
+            تجربة في حياتك، تتم إضافة سطر جديد إلى هذا البرنامج.
+          </p>
+          <p>
+            موقف أخافك. كلمة جرحتك. تجربة جعلتك تشعر بأنك غير كافٍ. شخص جعلك
+            تعتقد أنك لا تستحق الحب إلا إذا أرضيته. موقف تعلمت منه أن السكوت
+            أفضل من المواجهة. أو تجربة جعلتك تعتقد أن القوة تعني ألا تظهر ضعفك
+            أبدًا.
+          </p>
+          <p>
+            ومع مرور السنوات، يصبح كل ذلك جزءًا من طريقة عملك. ثم تكبر وتبدأ
+            باستخدام هذا البرنامج في عالم جديد، مع أشخاص جدد، ومواقف مختلفة. لكن
+            المشكلة أن الكود قديم، بينما حياتك تغيرت.
+          </p>
+
+          <div class="article-subtitle">قصة صديق كشفت لي شيئًا مخيفًا</div>
+          <p>
+            واحد من أصدقائي كان لديه سلوك يزعجه جدًا. في أي مجموعة يدخلها، أو أي
+            أشخاص يتعرف عليهم، كان غالبًا يبدأ بالحديث عن شخص آخر. يتريق على
+            أحد، ينقل كلام شخص إلى شخص آخر، ويذكر عيوب الآخرين.
+          </p>
+          <p>
+            وكان يعرف تمامًا أن هذا السلوك سيئ، بل كان يشتكي منه بنفسه لأنه تسبب
+            له في إحراجات ومشاكل، خصوصًا في بيئة العمل. لكنه لم يكن يعرف: لماذا
+            أفعل هذا أصلًا؟
+          </p>
+          <p>
+            جلسنا نتحدث ونتعمق في الموضوع، إلى أن حكى لي عن موقف قديم. قال إنه
+            عندما كان صغيرًا، رأى أخاه الأكبر يدخن، فذهب وأخبر والده. والده لم
+            يعاقبه، بل على العكس، شعر بالفخر لأنه أخبره.
+          </p>
+          <p>
+            ومع الوقت أصبح هذا الأسلوب وسيلة بالنسبة له للحصول على الاهتمام
+            والقبول من والديه. كان يخبرهم عن إخوته، وهم يكافئونه أو يمدحونه لأنه
+            يساعدهم على حماية الآخرين.
+          </p>
+          <p>
+            كانت نيته وقتها جيدة. لكن المشكلة لم تكن في النية. المشكلة أن السلوك
+            الذي تعلمه في طفولته استمر معه حتى بعد أن انتهت الحاجة إليه. كبر
+            الطفل، لكن البرنامج بقي كما هو.
+          </p>
+
+          <div class="article-subtitle">لحظة الإدراك</div>
+          <p>
+            عندما ربطنا بين الماضي والحاضر، جلس صامتًا لفترة طويلة. لأن الإنسان
+            عندما يكتشف من أين جاء سلوك كان يعتقد أنه جزء من شخصيته، تحدث لحظة
+            إدراك مختلفة تمامًا.
+          </p>
+          <div class="article-quote">
+            "أنا لا أفعل هذا لأنني هكذا." بل: "أنا تعلمت أن أكون هكذا."
+          </div>
+          <p>
+            وهنا يبدأ التغيير الحقيقي، لأنك لن تستطيع تغيير سلوك لا تفهم جذوره.
+          </p>
+
+          <div class="article-subtitle">
+            ربما أنت لا تتصرف كما أنت... بل كما اضطررت أن تكون
+          </div>
+          <p>
+            أنت لا تتصرف دائمًا بناءً على من أصبحت اليوم، بل بناءً على ما اضطررت
+            أن تكونه في الماضي. ردود أفعالك قد تكون حلولًا قديمة لمشاكل انتهت،
+            لكنك لم تحدّث نفسك بعدها.
+          </p>
+          <p>
+            ربما كنت طفلًا واضطررت أن تكون هادئًا حتى لا تُزعج أحدًا، فكبرت
+            وأصبحت لا تعرف كيف تعبّر عن غضبك. ربما تعلمت أن الحب يأتي عندما ترضي
+            الآخرين، فكبرت وأصبحت تخاف من قول "لا". ربما تعرضت للنقد كثيرًا،
+            فكبرت وأصبحت تدافع عن نفسك حتى عندما لا يهاجمك أحد. ربما تعرضت
+            للخيانة، فأصبحت لا تثق بأحد.
+          </p>
+
+          <div class="article-subtitle">هنا يبدأ السؤال الأخطر</div>
+          <p>
+            إذا كانت قراراتك تنبع أحيانًا من برمجة لا إرادية... فهل أنت فعلًا من
+            يقود حياتك؟ أم أنك فقط تنفذ شيئًا كُتب فيك منذ سنوات؟
+          </p>
+          <p>
+            فكر في آخر مرة غضبت فيها. هل سألت نفسك: لماذا غضبت؟ أم أنك اهتممت
+            فقط بما ستقوله للشخص الآخر؟ عندما شعرت بالغيرة، هل سألت: لماذا تحرك
+            هذا الشعور بداخلي؟ وعندما شعرت بالتهديد، هل سألت: هل هناك خطر حقيقي،
+            أم أن شيئًا قديمًا بداخلي شعر بالخوف؟
+          </p>
+
+          <div class="article-subtitle">
+            أعلى درجات الذكاء ليست سرعة التفكير
+          </div>
+          <p>
+            قد تعتقد أن الذكاء يعني سرعة الفهم، أو قوة الذاكرة، أو القدرة على حل
+            المشكلات بسرعة. لكن هناك مستوى مختلف من الذكاء يسمى: Metacognition —
+            ما وراء المعرفة. أي أن تكون قادرًا على التفكير في طريقة تفكيرك
+            نفسها.
+          </p>
+          <p>
+            ألا تعيش داخل أفكارك فقط، بل تراقبها. تقول: "أنا غاضب" ثم تسأل:
+            لماذا أنا غاضب؟ "أنا أغار" ثم تسأل: ماذا تخبرني غيرتي؟ "أريد أن
+            أهاجم" ثم تسأل: لماذا شعرت بالتهديد أصلًا؟
+          </p>
+
+          <div class="article-subtitle">لماذا الوعي مؤلم؟</div>
+          <p>
+            لأن من السهل أن تقول: "أنا صح." لكن من الصعب أن تقول: "ماذا لو كنت
+            مخطئًا؟" ومن السهل أن تقول: "هذا طبعي." لكن الأصعب أن تسأل: "هل هذا
+            طبعي فعلًا، أم شيء تعلمته؟"
+          </p>
+          <p>
+            الأنا "Ego" لا تحب هذه التجربة. تحب أن تشعرك أنك ضحية، أو أنك على
+            حق، أو أنك هكذا ولن تتغير.
+          </p>
+
+          <div class="article-subtitle">
+            أعظم شيء تملكه هو قدرتك على الاختيار
+          </div>
+          <p>
+            الإنسان مخلوق يمتلك القدرة على الاختيار، وهذه القدرة ليست شيئًا
+            بسيطًا. أنت تختار، ولهذا تتحمل مسؤولية اختياراتك. قد تكون لديك تجارب
+            لم تخترها، وقد تكون هناك أشياء حدثت لك دون إرادتك، لكن يبقى السؤال:
+            ماذا ستفعل بما حدث لك؟ هل ستترك الماضي يكتب بقية القصة؟ أم ستبدأ أنت
+            بكتابة ما تبقى منها؟
+          </p>
+
+          <div class="article-subtitle">لا تجعل ماضيك يكتب مستقبلك</div>
+          <p>
+            كل مرة تقول فيها: "أنا هكذا." توقف قليلًا واسأل: لماذا أنا هكذا؟ كل
+            مرة تكرر فيها سلوكًا لا تحبه: من أين تعلمته؟ كل مرة تشعر فيها بشعور
+            قوي: هل هذا شعور ناتج عن اللحظة الحالية، أم عن شيء قديم؟
+          </p>
+          <p>
+            قد تكتشف أن بعض الأشياء التي تفعلها اليوم ليست إلا حلولًا قديمة
+            لمشاكل لم تعد موجودة.
+          </p>
+
+          <div class="article-subtitle">في النهاية...</div>
+          <p>
+            أخطر شيء ليس أن تخطئ. أخطر شيء أن تعيش الخطأ وتكرره دون وعي، ثم
+            تعتقد أن هذا هو الطبيعي.
+          </p>
+          <p>
+            أنت لست كل أفكارك، ولست كل مشاعرك، ولست كل ردود أفعالك. بعضها مجرد
+            أنماط تعلمتها. واللحظة التي تبدأ فيها بمراقبتها، تبدأ في استعادة
+            قدرتك على الاختيار.
+          </p>
+          <p>
+            لذلك، في المرة القادمة التي تجد نفسك تفعل شيئًا دون أن تفهم لماذا،
+            لا تسأل فقط: "ماذا أفعل؟" اسأل: "لماذا أفعل هذا أصلًا؟" ومن أين جاء
+            هذا الشعور؟ ومن أين تعلمت هذا السلوك؟ وهل أنا أتصرف بناءً على ما
+            أريده اليوم، أم بناءً على ما اضطررت أن أكونه بالأمس؟
+          </p>
+          <p>
+            <strong
+              >لأن أخطر قيد يمكن أن تعيش داخله... هو قيد لا تعرف أصلًا أنه
+              موجود. واللحظة التي تبدأ فيها بمراقبة نفسك، هي اللحظة التي تبدأ
+              فيها بالتحرر.</strong
+            >
+          </p>
+        </div>
+
+        <div class="article-reader" data-article-reader="article-2">
+          <button class="article-close" data-article-close aria-label="إغلاق">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <h3>الدوبامين: لماذا نشعر بالكسل رغم أننا نريد النجاح؟</h3>
+          <p>
+            ما هو الدوبامين؟ الدوبامين ناقل عصبي له العديد من الوظائف في الدماغ،
+            ومن أهمها دوره في الدافع والتعلم المرتبط بالمكافأة. ببساطة، هو جزء
+            من النظام الذي يدفعك للسعي نحو الأشياء التي يتوقع دماغك أنها مجزية.
+          </p>
+          <p>
+            وهنا يقع الكثيرون في سوء فهم: الدوبامين ليس مجرد مادة تُفرز بعد
+            الشعور بالمتعة، بل يرتبط أيضًا بالتوقع والرغبة والسعي نحو المكافأة.
+          </p>
+          <div class="article-subtitle">نحن نعيش في عصر المكافآت السريعة</div>
+          <p>
+            فكر في يومك: إشعار جديد، فيديو قصير، رسالة، لعبة، طعام لذيذ، محتوى
+            لا ينتهي. كل شيء متاح خلال ثوانٍ. لا يعجبك فيديو؟ انتقل للتالي. لا
+            يعجبك؟ التالي.
+          </p>
+          <p>
+            بينما الدراسة والعمل مختلفان تمامًا. تحتاج إلى وقت وجهد وصبر،
+            وغالبًا تكون النتائج متأخرة. وهنا يبدأ الصراع. دماغك المعتاد على
+            المكافآت السريعة يجد صعوبة أكبر في الصبر على الأشياء التي تحتاج
+            وقتًا.
+          </p>
+          <p>
+            لهذا قد يبدو الهاتف أكثر إغراءً من الكتاب، واللعبة أكثر متعة من
+            العمل. ليس لأنك لا تريد النجاح، بل لأن المكافأة في أحدهما فورية وفي
+            الأخرى بعيدة.
+          </p>
+
+          <div class="article-subtitle">المشكلة ليست في المتعة</div>
+          <p>
+            المتعة ليست عدوك، الهاتف ليس عدوك، الألعاب والأفلام والطعام ليست
+            المشكلة بذاتها. المشكلة تبدأ عندما يتحول السلوك إلى شيء لا تستطيع
+            التحكم به.
+          </p>
+          <p>
+            هناك فرق بين أن تستخدم هاتفك لأنك تريد ذلك، وبين أن تستمر في
+            استخدامه رغم معرفتك بأنه يعطل حياتك.
+          </p>
+          <div class="article-quote">
+            هل أنا أستخدم هذا الشيء أم أنه هو الذي يستخدمني؟
+          </div>
+
+          <div class="article-subtitle">كل عادة تبدأ بإشارة</div>
+          <p>
+            نادرًا ما تحدث العادات من العدم، غالبًا يوجد قبلها محفز أو إشارة.
+            مثلًا: تستيقظ → تمسك الهاتف، تشعر بالملل → تفتح مواقع التواصل، تشعر
+            بالتوتر → تبحث عن الطعام، تجلس وحدك → تمارس سلوكًا اعتدت عليه.
+          </p>
+          <p>
+            لذلك، إذا أردت تغيير عادة، لا تحارب السلوك فقط، ابحث عن الإشارة التي
+            تسبقه. غيّر البيئة، ضع الهاتف بعيدًا عن السرير، أطفئ الإشعارات، لا
+            تجعل الأشياء التي تحاول مقاومتها أمامك طوال الوقت.
+          </p>
+
+          <div class="article-subtitle">
+            لماذا نعود إلى الأشياء التي نكرهها؟
+          </div>
+          <p>
+            لأننا لا نعود دائمًا بحثًا عن المتعة، أحيانًا نعود هربًا من الألم.
+            تفتح هاتفك لأنك لا تريد التفكير، تأكل لأنك متوتر، تلعب لأن الواقع
+            يضغط عليك، تشاهد المحتوى باستمرار لأن الصمت يجبرك على مواجهة نفسك.
+          </p>
+          <div class="article-quote">ما الشيء الذي أحاول الهروب منه؟</div>
+          <p>
+            أحيانًا المشكلة ليست في العادة نفسها، بل في السبب الذي يدفعنا إليها.
+          </p>
+
+          <div class="article-subtitle">هل صيام الدوبامين هو الحل؟</div>
+          <p>
+            لا يوجد زر سحري يعيد ضبط حياتك خلال 24 ساعة، التغيير الحقيقي لا يحدث
+            فجأة. إذا كنت تستخدم هاتفك 7 ساعات يوميًا، لا تتوقع أن يصبح استخدامك
+            ساعة واحدة غدًا. ابدأ بالتدرج، قلل ساعة، استمر، ثم قلل أكثر. التقدم
+            البطيء الذي يستمر أفضل من الحماس الكبير الذي ينتهي بعد يومين.
+          </p>
+
+          <div class="article-subtitle">كيف أجعل الدراسة والعمل أسهل؟</div>
+          <p>
+            المشكلة في الأهداف الكبيرة أنها بعيدة، لذلك قسّمها. بدلًا من أن
+            تقول: "يجب أن أنهي المادة" قل: "سأدرس 10 صفحات". بدل "أريد أن أصبح
+            محترفًا" قل: "سأتعلم شيئًا جديدًا اليوم".
+          </p>
+          <p>
+            الدماغ يحتاج إلى رؤية التقدم، ولهذا فإن الأهداف البعيدة تحتاج إلى
+            مكافآت قريبة. احتفل بالتقدم الصغير: جلسة دراسة أنهيتها، مهمة
+            أكملتها، أسبوع التزمت فيه. لا تجعل شعور الإنجاز مرتبطًا فقط بالوصول
+            إلى النهاية.
+          </p>
+
+          <div class="article-subtitle">لا تبدأ يومك بالاستهلاك</div>
+          <p>
+            من أسهل الطرق لضياع اليوم أن تبدأه بالتنقل بين التطبيقات والمقاطع،
+            ثم تقول لنفسك: "بعد قليل سأبدأ." لكن "بعد قليل" تتحول إلى ساعات،
+            والساعات إلى أيام.
+          </p>
+          <p>
+            حاول أن تمنح أهم شيء في حياتك جزءًا من يومك قبل أن تغرق في
+            الاستهلاك. ليس المطلوب أن تمنع نفسك من المتعة، لكن لا تجعل المتعة
+            تأتي دائمًا قبل مسؤولياتك.
+          </p>
+
+          <div class="article-subtitle">في النهاية</div>
+          <p>
+            الدوبامين ليس عدوك والمتعة ليست مشكلة. المشكلة تبدأ عندما تصبح
+            المكافآت السريعة هي الشيء الوحيد الذي يستطيع دماغك الاستمتاع به.
+          </p>
+          <p>
+            لا تحاول أن تعيش حياة بلا هاتف أو ألعاب أو متعة، تعلم فقط ألا تصبح
+            عبدًا لها. تعلم أن تستمتع بالأشياء البطيئة أيضًا: بتعلم مهارة،
+            بقراءة كتاب، بإنهاء مشروع، بالرياضة، وبالتقدم حتى لو كان بسيطًا.
+          </p>
+          <p>
+            <strong
+              >ليس كل ما يمنحك شعورًا جيدًا الآن سيمنحك حياة جيدة
+              لاحقًا.</strong
+            >
+            والأهم: لا تجعل احتفالك بالوصول أكبر من تقديرك لنفسك أثناء الطريق،
+            لأن الوصول ليس مضمونًا دائمًا، أما السعي فهو قرار تستطيع اتخاذه كل
+            يوم.
+          </p>
+        </div>
+
+        <div class="article-reader" data-article-reader="article-3">
+          <button class="article-close" data-article-close aria-label="إغلاق">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <h3>قد تتأخر... فتسبق الجميع</h3>
+          <p>
+            قد يدفعك هذا العنوان إلى الاعتقاد بأنك ستجد كلمات تطمئنك بأن تأخرك
+            اليوم سيجعلك تتقدم على الجميع غدًا. لكن الحقيقة ليست في أن تسبق
+            أحدًا، بل في أن تتوقف عن قياس حياتك بحياة الآخرين.
+          </p>
+          <p>
+            أغلب قلقنا لا يأتي من بطء الطريق، بل من الالتفات إلى طرق الناس. فما
+            إن تتحول الرحلة إلى مقارنة، حتى يصبح النجاح سباقًا، وتغدو الأحلام
+            مجرد محطات نتنافس للوصول إليها قبل غيرنا، لا لأنها تشبهنا، بل لأن
+            الجميع يسير نحوها.
+          </p>
+          <p>
+            والمقارنة لا تسرق الطمأنينة فقط، بل تعيد تشكيل رغباتنا أيضًا. كم من
+            هدف سعينا إليه لأن غيرنا سبَق إليه، وكم من حسرة سكنت قلوبنا على
+            أشياء لم نكن لنرغب فيها لولا أننا رأينا الآخرين يملكونها.
+          </p>
+          <p>
+            لقد تعلم كثيرون كيف ينافسون، لكنهم لم يتعلموا كيف ينصتون إلى ما
+            يريدونه حقًا.
+          </p>
+          <p>
+            تأمل صالة المطار؛ الجميع يقف في الصف نفسه، لكن لكل مسافر وجهته
+            وإجراءاته وموعد رحلته. لا يقلق أحد لأن غيره عبر قبله، لأنه يعلم أن
+            اختلاف زمن العبور لا يعني اختلاف الوصول.
+          </p>
+          <p>
+            أما في الحياة، فننسى هذه الحقيقة، ونظن أن نجاح غيرنا يعني تأخرنا، مع
+            أن لكل إنسان طريقه ووقته.
+          </p>
+          <p>
+            والإنسان الذي يعرف نفسه لا يقضي عمره في مطاردة ظهور الآخرين، بل في
+            تجاوز نسخته القديمة. منافسه الحقيقي هو جهله، وضعفه، وتردده، لا
+            الأشخاص من حوله.
+          </p>
+          <p>
+            فما أكثر من سبقوا الناس ولم يبلغوا أنفسهم، وما أقل من بلغوا أنفسهم
+            فاكتشفوا أنهم لم يكونوا يومًا في سباق.
+          </p>
+          <div class="article-quote">
+            ربما لم تكن متأخرًا كما تظن، بل كنت تنظر إلى ساعة ليست ساعتك.
+          </div>
+          <p>
+            فلكل إنسان وقته، وطريقه، ونضجه، ورزقه الذي يأتيه في أوانه. فلا تجعل
+            الآخرين معيارًا لرحلتك، ولا تنشغل بمن سبقك؛ لأنك لم تُخلق لتسبق
+            الجميع، بل خُلقت لتبلغ أفضل نسخة من نفسك.
+          </p>
+        </div>
+
+        <div class="article-reader" data-article-reader="article-4">
+          <button class="article-close" data-article-close aria-label="إغلاق">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <h3>التعفن الدماغي في عصر المحتوى السريع</h3>
+          <p>
+            نعيش اليوم في عصر أصبحت فيه المعرفة متاحة بضغطة زر؛ فالمعلومات،
+            والكتب، والدورات، وحتى المحاضرات الكاملة أصبحت في متناول الجميع. ومع
+            ذلك، فإننا نعاني أكثر من أي وقت مضى من التشتت، وضعف التركيز، وسرعة
+            النسيان.
+          </p>
+          <p>
+            والمفارقة أن الأدوات التي كان يفترض أن تساعدنا على التعلم، أصبحت في
+            كثير من الأحيان سببًا في إضعاف قدرتنا على التفكير العميق والفهم
+            الحقيقي.
+          </p>
+          <p>
+            في بداية سلسلة "كيف نصبح مثقفين" تحدثنا عن أن الإنسان قد يكون هو
+            أكبر عائق أمام تطوره، بسبب عادات ذهنية خاطئة بناها بنفسه حتى أصبحت
+            حاجزًا بينه وبين التعلم والنمو. واليوم نناقش واحدة من أخطر هذه
+            العقبات، وهي ما يُعرف بـ التعفن الدماغي أو كما أحب أن أسميه: تعطل
+            الفكر.
+          </p>
+          <p>
+            المقصود بالتعفن الدماغي ليس توقف العقل عن العمل، بل هو تدهور تدريجي
+            في وظائفه يحدث ببطء خلال الأيام والشهور والسنوات، حتى يصبح الإنسان
+            أقل قدرة على التركيز والتذكر والتحليل. وهو يتسلل إلى العقل دون أن
+            يشعر صاحبه، من خلال كل وسيلة تمنع الدماغ من ممارسة وظائفه الطبيعية.
+          </p>
+
+          <div class="article-subtitle">دور الخوارزميات في تشكيل عقولنا</div>
+          <p>
+            لم تعد خوارزميات منصات التواصل الاجتماعي تكتفي بعرض المحتوى الذي
+            يعجبنا، بل أصبحت تعيد تشكيل طريقة تفكيرنا. فهي تحصر المستخدم داخل
+            دائرة ضيقة من اهتماماته، وتكرر عليه النوع نفسه من المحتوى حتى يظن
+            أنه لا يهتم إلا به، بينما تحرمه من اكتشاف مجالات أخرى قد تكون أكثر
+            فائدة وإثراء.
+          </p>
+          <p>
+            فعلى سبيل المثال، إذا كان شخص يحب الرسم، ستغمره المنصة بمقاطع الرسم
+            فقط، بينما قد لا تعرض عليه محتوى عن النحت، أو المسرح، أو الأدب، أو
+            الخط العربي، رغم احتمال أن تعجبه هذه المجالات لو أتيحت له فرصة
+            اكتشافها.
+          </p>
+          <p>
+            ولا يتوقف الأمر عند هذا الحد، بل إن الخوارزميات تدفع المحتوى الأكثر
+            انتشارًا بغض النظر عن قيمته، مما يجعل الإنسان يتبنى اهتمامات وآراء
+            الأغلبية دون وعي، فيتحول تدريجيًا إلى مستهلك بدلاً من أن يكون مفكرًا
+            مستقلاً.
+          </p>
+
+          <div class="article-subtitle">
+            كيف يؤثر المحتوى القصير على الدماغ؟
+          </div>
+          <ul>
+            <li>حصر الاهتمامات في نطاق ضيق.</li>
+            <li>تعويد الدماغ على فترات تركيز قصيرة جدًا.</li>
+            <li>زيادة التشتت وضعف الذاكرة.</li>
+            <li>ترسيخ ثقافة السطحية والتفاهة.</li>
+            <li>تقليل القدرة على التعلم العميق والتفكير النقدي.</li>
+          </ul>
+          <p>
+            فالعقل يحتاج إلى وقت لمعالجة المعلومات وتخزينها في الذاكرة طويلة
+            المدى، بينما المحتوى السريع ينتقل من فكرة إلى أخرى خلال ثوانٍ، فلا
+            يمنح الدماغ فرصة للفهم أو الحفظ.
+          </p>
+
+          <div class="article-subtitle">اقتصاد الانتباه</div>
+          <p>
+            تعتمد شركات التقنية على ما يسمى اقتصاد الانتباه، أي أن انتباه
+            الإنسان أصبح موردًا اقتصاديًا ثمينًا تتنافس عليه الشركات.
+          </p>
+          <p>
+            ويقول الفيلسوف ماثيو كروفورد إن الانتباه مورد محدود، فإذا استهلكناه
+            في أمور تافهة فلن يتبقى ما يكفي للأشياء المهمة.
+          </p>
+          <p>
+            أما الباحث هيربرت سايمون، الذي قدم مفهوم اقتصاد الانتباه عام 1971،
+            فقد قال:
+          </p>
+          <div class="article-quote">
+            "وفرة المعلومات تخلق فقرًا في الانتباه."
+          </div>
+          <p>
+            فكلما زادت كمية المعلومات التي نتعرض لها، أصبح من الصعب علينا
+            التركيز فيما هو مهم، ولهذا أصبحت المشكلة ليست نقص المعلومات، وإنما
+            كثرتها وسوء إدارتها.
+          </p>
+
+          <div class="article-subtitle">
+            عندما أصبح العلم ضحية لاقتصاد الانتباه
+          </div>
+          <p>
+            امتد تأثير اقتصاد الانتباه حتى إلى البحث العلمي. فلم تعد قيمة
+            الأبحاث تُقاس فقط بجودتها، بل أيضًا بمدى انتشارها على وسائل التواصل
+            الاجتماعي.
+          </p>
+          <p>
+            وأصبح بعض الباحثين يهتمون بعدد مرات تداول أبحاثهم على الإنترنت أكثر
+            من اهتمام الناس بجودة تلك الأبحاث، لأن انتشارها يؤثر في سمعتهم
+            الأكاديمية وفرصهم المهنية.
+          </p>
+          <p>وهذا يعني أن حتى المعرفة أصبحت تخضع لمنطق المشاهدات والتفاعل.</p>
+
+          <div class="article-subtitle">الآثار النفسية والاجتماعية</div>
+          <ul>
+            <li>إدمان وسائل التواصل الاجتماعي.</li>
+            <li>انخفاض الثقة بالنفس.</li>
+            <li>المقارنة المستمرة مع الآخرين.</li>
+            <li>زيادة القلق والاكتئاب.</li>
+            <li>انتشار الأخبار الكاذبة والشائعات.</li>
+            <li>تهميش المحتوى الجاد لصالح المحتوى المثير.</li>
+          </ul>
+          <p>
+            فالمنصات تكافئ كل ما يجذب الانتباه، سواء كان صحيحًا أم مضللًا، لأن
+            الهدف الأساسي هو إبقاء المستخدم لأطول فترة ممكنة.
+          </p>
+
+          <div class="article-subtitle">
+            التعفن الدماغي لا يقتصر على المحتوى القصير
+          </div>
+          <p>
+            رغم أن الفيديوهات القصيرة تمثل أحد أهم أسبابه، إلا أن هناك عادات
+            أخرى تؤدي إلى تعطل الفكر، مثل:
+          </p>
+          <ul>
+            <li>
+              الاعتماد الكامل على الذكاء الاصطناعي في التفكير والكتابة والتحليل.
+            </li>
+            <li>حفظ المقالات والمنشورات لقراءتها لاحقًا دون العودة إليها.</li>
+            <li>
+              الاعتماد المبالغ فيه على خرائط Google حتى في الأماكن المألوفة.
+            </li>
+            <li>البحث السريع عن الإجابات دون محاولة التفكير أولًا.</li>
+          </ul>
+          <p>كل هذه السلوكيات تجعل العقل يتخلى تدريجيًا عن وظائفه الطبيعية.</p>
+
+          <div class="article-subtitle">
+            الذكاء الاصطناعي: أداة لا بديل عن العقل
+          </div>
+          <p>
+            الذكاء الاصطناعي تقنية عظيمة، لكنه يصبح مشكلة عندما نستبدله بعقولنا.
+            فإذا جعلناه يكتب عنا، ويفكر عنا، ويحلل بدلًا منا، فإننا مع الوقت
+            نفقد استقلاليتنا الذهنية، وتضعف قدرتنا على الإبداع واتخاذ القرار.
+          </p>
+          <p>لذلك ينبغي استخدامه كمساعد، لا كبديل للعقل البشري.</p>
+
+          <div class="article-subtitle">متلازمة "سأقرأه لاحقًا"</div>
+          <p>
+            كثير منا يحفظ عشرات المقالات والكتب والدورات معتقدًا أنه سيعود إليها
+            لاحقًا، لكنه لا يفعل.
+          </p>
+          <p>
+            هذه العادة تمنح شعورًا زائفًا بالإنجاز، بينما هي في الحقيقة شكل من
+            أشكال التسويف، فتتكدس المواد المؤجلة دون الاستفادة منها، ويعتاد
+            العقل على التأجيل بدلًا من التنفيذ.
+          </p>
+
+          <div class="article-subtitle">كيف نعالج التعفن الدماغي؟</div>
+          <p>
+            بما أن التعفن الدماغي يتكون بالتدريج، فإن علاجه أيضًا يحتاج إلى
+            التدرج.
+          </p>
+          <p>
+            <strong>الطريقة الأولى:</strong> البدء بمحتوى طويل نسبيًا حتى لو كان
+            ترفيهيًا، بهدف تدريب الدماغ على الصبر والتركيز، ثم الانتقال تدريجيًا
+            إلى المحتوى المعرفي.
+          </p>
+          <p>
+            <strong>الطريقة الثانية:</strong> البدء مباشرة بالمحتوى الطويل
+            المفيد في المجال الذي يثير اهتمامك، سواء كان علميًا أو أدبيًا أو
+            اقتصاديًا أو غير ذلك.
+          </p>
+          <p>
+            ومن أفضل الوسائل لذلك إنشاء حساب مستقل على يوتيوب مخصص فقط للمحتوى
+            التعليمي، حتى تعمل الخوارزميات لصالحك، فتقترح عليك المزيد من
+            الفيديوهات المفيدة بدلًا من المحتوى السطحي.
+          </p>
+
+          <div class="article-subtitle">خاتمة</div>
+          <p>
+            التعفن الدماغي ليس مرضًا يصيب العقل فجأة، بل هو نتيجة عادات صغيرة
+            تتكرر يومًا بعد يوم حتى تضعف قدرتنا على التفكير والتركيز والتعلم.
+          </p>
+          <p>
+            ومع أن التكنولوجيا وفرت لنا فرصًا غير مسبوقة للوصول إلى المعرفة،
+            فإنها في الوقت نفسه خلقت تحديات كبيرة تتطلب منا وعيًا وانضباطًا.
+          </p>
+          <p>
+            <strong
+              >لذلك، فإن حماية العقل تبدأ من حسن إدارة الانتباه، واختيار المحتوى
+              الذي نستهلكه، وعدم السماح للخوارزميات أو الأدوات الذكية بأن تفكر
+              نيابة عنا.</strong
+            >
+          </p>
+          <p>
+            فالعقل مثل العضلة؛ كلما استخدمناه في التفكير والتأمل والقراءة، ازداد
+            قوةً ووعيًا، وكلما أهملناه، فقد تدريجيًا أهم وظائفه.
+          </p>
+        </div>
+
+        <div class="modal-image-stage" data-image-stage>
+          <button
+            class="modal-nav modal-prev"
+            data-modal-prev
+            aria-label="الصورة السابقة"
+          >
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+          <div class="modal-img-wrapper">
+            <img data-modal-img src="" alt="" draggable="false" />
+          </div>
+          <button
+            class="modal-nav modal-next"
+            data-modal-next
+            aria-label="الصورة التالية"
+          >
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+        </div>
+
+        <div
+          class="zoom-controls"
+          data-zoom-controls
+          aria-label="أدوات تكبير الصورة"
+        >
+          <button type="button" data-zoom-out aria-label="تصغير">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <button type="button" data-zoom-reset aria-label="إعادة الحجم">
+            <i class="fa-solid fa-expand"></i>
+          </button>
+          <button type="button" data-zoom-in aria-label="تكبير">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+
+        <h4 class="modal-title" data-modal-title></h4>
+        <p class="modal-desc" data-modal-desc></p>
+      </div>
+    </div>
+
+    <script>
+      "use strict";
+
+      document.documentElement.classList.add("js-ready");
+
+      /* =========================================================
+         MOBILE SIDEBAR
+      ========================================================= */
+      const sidebar = document.querySelector("[data-sidebar]");
+      const sidebarBtn = document.querySelector("[data-sidebar-btn]");
+
+      if (sidebar && sidebarBtn) {
+        sidebarBtn.addEventListener("click", () => {
+          sidebar.classList.toggle("active");
+        });
+      }
+
+      /* =========================================================
+         NAVIGATION
+      ========================================================= */
+      const navbarLinks = [...document.querySelectorAll("[data-nav-link]")];
+      const pages = [...document.querySelectorAll("[data-page]")];
+
+      navbarLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          const pageName = link.textContent.trim();
+
+          navbarLinks.forEach((item) =>
+            item.classList.toggle("active", item === link),
+          );
+          pages.forEach((page) => {
+            page.classList.toggle(
+              "active",
+              page.getAttribute("data-page") === pageName,
+            );
+          });
+
+          window.scrollTo({ top: 0, behavior: "smooth" });
+
+          /* Close the mobile sidebar after navigation. */
+          if (sidebar) sidebar.classList.remove("active");
+        });
+      });
+
+      /* =========================================================
+         LIGHTBOX — ROBUST IMAGE VIEWER
+         Works with mouse, keyboard and touch-friendly buttons.
+      ========================================================= */
+      const modalContainer = document.querySelector("[data-modal-container]");
+      const overlay = document.querySelector("[data-overlay]");
+      const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
+      const modalImg = document.querySelector("[data-modal-img]");
+      const modalTitle = document.querySelector("[data-modal-title]");
+      const modalDesc = document.querySelector("[data-modal-desc]");
+      const imageStage = document.querySelector("[data-image-stage]");
+      const modalPrev = document.querySelector("[data-modal-prev]");
+      const modalNext = document.querySelector("[data-modal-next]");
+      const zoomControls = document.querySelector("[data-zoom-controls]");
+      const zoomInBtn = document.querySelector("[data-zoom-in]");
+      const zoomOutBtn = document.querySelector("[data-zoom-out]");
+      const zoomResetBtn = document.querySelector("[data-zoom-reset]");
+      const articleReaders = [
+        ...document.querySelectorAll("[data-article-reader]"),
+      ];
+      const galleryImages = [...document.querySelectorAll(".project-img img")];
+
+      let currentImageIndex = -1;
+      let zoom = 1;
+      let panX = 0;
+      let panY = 0;
+      let touchStartDistance = null;
+
+      function applyImageTransform() {
+        if (!modalImg) return;
+        modalImg.style.transform = `translate3d(${panX}px, ${panY}px, 0) scale(${zoom})`;
+        modalImg.style.cursor = zoom > 1 ? "grab" : "zoom-in";
+      }
+
+      function resetZoom() {
+        zoom = 1;
+        panX = 0;
+        panY = 0;
+        applyImageTransform();
+      }
+
+      function changeZoom(amount) {
+        zoom = Math.min(4, Math.max(1, zoom + amount));
+
+        if (zoom === 1) {
+          panX = 0;
+          panY = 0;
+        }
+
+        applyImageTransform();
+      }
+
+      function resetModalContent() {
+        articleReaders.forEach((reader) => reader.classList.remove("active"));
+
+        if (modalImg) {
+          modalImg.style.display = "block";
+          modalImg.removeAttribute("src");
+          modalImg.alt = "";
+        }
+
+        if (modalTitle) {
+          modalTitle.style.display = "";
+          modalTitle.textContent = "";
+        }
+
+        if (modalDesc) {
+          modalDesc.style.display = "";
+          modalDesc.textContent = "";
+        }
+
+        if (imageStage) imageStage.style.display = "flex";
+        if (zoomControls) zoomControls.style.display = "flex";
+
+        modalContainer?.classList.remove("article-modal", "cert-modal");
+        currentImageIndex = -1;
+        resetZoom();
+      }
+
+      function updateNavigationVisibility() {
+        const show = currentImageIndex >= 0 && galleryImages.length > 1;
+
+        if (modalPrev) modalPrev.style.display = show ? "flex" : "none";
+        if (modalNext) modalNext.style.display = show ? "flex" : "none";
+      }
+
+      function showImage(index) {
+        if (!galleryImages.length) return;
+
+        currentImageIndex =
+          (index + galleryImages.length) % galleryImages.length;
+
+        const source = galleryImages[currentImageIndex];
+        const src = source.getAttribute("src");
+
+        resetModalContent();
+
+        if (!src || !modalImg) return;
+
+        modalImg.src = src;
+        modalImg.alt = source.getAttribute("alt") || "صورة من الأعمال";
+        modalTitle.textContent = source.getAttribute("alt") || "";
+        modalDesc.textContent = source.getAttribute("data-desc") || "";
+
+        if (source.closest(".cert-item")) {
+          modalContainer.classList.add("cert-modal");
+        }
+
+        modalContainer.classList.add("active");
+        overlay.classList.add("active");
+        document.body.classList.add("modal-open");
+
+        updateNavigationVisibility();
+      }
+
+      function openImage(source) {
+        const index = galleryImages.indexOf(source);
+        showImage(index >= 0 ? index : 0);
+      }
+
+      function openArticle(articleId) {
+        const reader = document.querySelector(
+          `[data-article-reader="${CSS.escape(articleId)}"]`,
+        );
+
+        if (!reader) return;
+
+        resetModalContent();
+
+        modalImg.style.display = "none";
+        modalTitle.style.display = "none";
+        modalDesc.style.display = "none";
+        imageStage.style.display = "none";
+        zoomControls.style.display = "none";
+
+        reader.classList.add("active");
+        modalContainer.classList.add("active", "article-modal");
+        overlay.classList.add("active");
+        document.body.classList.add("modal-open");
+      }
+
+      function closeModal() {
+        modalContainer?.classList.remove(
+          "active",
+          "cert-modal",
+          "article-modal",
+        );
+        overlay?.classList.remove("active");
+        document.body.classList.remove("modal-open");
+        resetModalContent();
+      }
+
+      /*
+        Event delegation is intentional:
+        instead of attaching a separate handler to every image,
+        one listener catches all current/future gallery images.
+        This also avoids the common "click does nothing" issue
+        when gallery content is changed dynamically.
+      */
+      document.addEventListener("click", (event) => {
+        const imageArea = event.target.closest(".project-img");
+        const image = imageArea?.querySelector("img");
+
+        if (image && imageArea) {
+          event.preventDefault();
+          event.stopPropagation();
+          openImage(image);
+          return;
+        }
+
+        const articleButton = event.target.closest("[data-article]");
+        if (articleButton) {
+          event.preventDefault();
+          openArticle(articleButton.getAttribute("data-article"));
+        }
+      });
+
+      modalCloseBtn?.addEventListener("click", closeModal);
+      overlay?.addEventListener("click", closeModal);
+
+      document.querySelectorAll("[data-article-close]").forEach((button) => {
+        button.addEventListener("click", closeModal);
+      });
+
+      modalPrev?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        if (currentImageIndex >= 0) showImage(currentImageIndex - 1);
+      });
+
+      modalNext?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        if (currentImageIndex >= 0) showImage(currentImageIndex + 1);
+      });
+
+      zoomInBtn?.addEventListener("click", () => changeZoom(0.25));
+      zoomOutBtn?.addEventListener("click", () => changeZoom(-0.25));
+      zoomResetBtn?.addEventListener("click", resetZoom);
+
+      /* Double click / double tap to toggle a comfortable zoom level. */
+      modalImg?.addEventListener("dblclick", (event) => {
+        event.preventDefault();
+        if (zoom === 1) {
+          zoom = 2;
+        } else {
+          resetZoom();
+          return;
+        }
+        applyImageTransform();
+      });
+
+      /* Mouse wheel zoom inside the large image. */
+      modalImg?.addEventListener(
+        "wheel",
+        (event) => {
+          if (!modalContainer.classList.contains("active")) return;
+          event.preventDefault();
+          changeZoom(event.deltaY < 0 ? 0.15 : -0.15);
+        },
+        { passive: false },
+      );
+
+      /* Simple one-finger drag when zoomed + pinch-to-zoom on touch devices. */
+      modalImg?.addEventListener(
+        "touchstart",
+        (event) => {
+          if (event.touches.length === 2) {
+            touchStartDistance = Math.hypot(
+              event.touches[0].clientX - event.touches[1].clientX,
+              event.touches[0].clientY - event.touches[1].clientY,
+            );
+          }
+        },
+        { passive: true },
+      );
+
+      modalImg?.addEventListener(
+        "touchmove",
+        (event) => {
+          if (event.touches.length === 2) {
+            event.preventDefault();
+
+            const distance = Math.hypot(
+              event.touches[0].clientX - event.touches[1].clientX,
+              event.touches[0].clientY - event.touches[1].clientY,
+            );
+
+            if (touchStartDistance) {
+              const difference = distance - touchStartDistance;
+              changeZoom(difference > 0 ? 0.04 : -0.04);
+              touchStartDistance = distance;
+            }
+          }
+        },
+        { passive: false },
+      );
+
+      modalImg?.addEventListener("touchend", () => {
+        touchStartDistance = null;
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (!modalContainer.classList.contains("active")) return;
+
+        if (event.key === "Escape") closeModal();
+        if (event.key === "ArrowRight" && currentImageIndex >= 0) {
+          showImage(currentImageIndex - 1);
+        }
+        if (event.key === "ArrowLeft" && currentImageIndex >= 0) {
+          showImage(currentImageIndex + 1);
+        }
+        if (event.key === "+" || event.key === "=") changeZoom(0.25);
+        if (event.key === "-" || event.key === "_") changeZoom(-0.25);
+        if (event.key === "0") resetZoom();
+      });
+
+      /* Keep the image inside the viewport after orientation changes. */
+      window.addEventListener("resize", () => {
+        if (zoom === 1) resetZoom();
+      });
+
+      /*
+        Add a few tiny interactive hearts without external images.
+        They follow the pointer slightly on desktop and remain subtle.
+      */
+      const decorativeHearts = document.querySelectorAll(
+        ".site-decoration .heart",
+      );
+
+      if (window.matchMedia("(pointer:fine)").matches) {
+        window.addEventListener(
+          "pointermove",
+          (event) => {
+            const x = (event.clientX / window.innerWidth - 0.5) * 2;
+            const y = (event.clientY / window.innerHeight - 0.5) * 2;
+
+            decorativeHearts.forEach((heart, index) => {
+              const strength = 2 + (index % 3);
+              heart.style.marginLeft = `${x * strength}px`;
+              heart.style.marginTop = `${y * strength}px`;
+            });
+          },
+          { passive: true },
+        );
+      }
+
+      console.log("💕 بورتفوليو لين — النسخة الوردية التفاعلية جاهزة");
+    </script>
+  </body>
+</html>
